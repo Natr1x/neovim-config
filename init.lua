@@ -215,6 +215,7 @@ vim.keymap.set('n', '<leader>so', function()
   require('telescope.builtin').tags { only_current_buffer = true }
 end)
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles)
+-- require 'profile.keymaps'
 
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
