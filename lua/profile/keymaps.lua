@@ -1,17 +1,51 @@
 
+-- local mapkey = vim.keymap.set
 
-local function bind(mappings)
-    local module = require(mappings.module)
+-- For debugging purposes
+local mapkey = function (...)
+    local args = {...}
+    local str_rep = vim.inspect(args)
+    str_rep = str_rep:gsub('\n','')
+    str_rep = str_rep:gsub('\t',' ')
+    print(str_rep)
+end
+
+local function args_string(args)
+    local res = vim.inspect(args)
+    res = res:gsub('\n','')
+    res = res:gsub('[ ]+',' ')
+    return ' ' .. res
+end
+
+local function bind_table(tbl, tbl_desc, mappings)
     for _, m in ipairs(mappings) do
         local mode, lhs, rhs, opts = unpack(m)
         opts = opts or {}
-        opts.desc = opts.desc or mappings.desc or mappings.module .. '.' .. rhs
+        opts.desc = opts.desc or mappings.desc or
+            tbl_desc .. '.' .. rhs .. ((m.args and args_string(m.args)) or '')
         if m.args then
-            vim.keymap.set(mode, lhs, function ()
-                return module[rhs](unpack(m.args))
+            local rhs_func = tbl[rhs]
+            mapkey(mode, lhs, function ()
+                return rhs_func(unpack(m.args))
             end, opts)
         else
-            vim.keymap.set(mode, lhs, module[rhs], opts)
+            mapkey(mode, lhs, tbl[rhs], opts)
+        end
+    end
+end
+
+local function bind_module(mappings)
+    local module = require(mappings.module)
+    bind_table(module, mappings.module, mappings)
+end
+
+local function bind(mappings)
+    for _, m in ipairs(mappings) do
+        if m.module then
+            bind_module(m)
+        elseif m.tbl then
+            bind_table(m.tbl[1], m.tbl[2], m)
+        else
         end
     end
 end
@@ -30,19 +64,7 @@ end
 -- vim.keymap.set({'n', 'o', 'v'}, '<leader>/', ':HopPatternMW<cr>')
 
 -- Keybindings for Telescope
--- local teleb = require('telescope.builtin')
-
--- vim.keymap.set('n', '<leader><space>',  teleb.buffers)
--- vim.keymap.set('n', '<leader>sf',       teleb.find_files)
--- vim.keymap.set('n', '<leader>sb',       teleb.current_buffer_fuzzy_find)
--- vim.keymap.set('n', '<leader>sh',       teleb.help_tags)
--- vim.keymap.set('n', '<leader>st',       teleb.tags)
--- vim.keymap.set('n', '<leader>sd',       teleb.grep_string)
--- vim.keymap.set('n', '<leader>sp',       teleb.live_grep)
--- vim.keymap.set('n', '<leader>so',       function() teleb.tags { only_current_buffer = true } end)
--- vim.keymap.set('n', '<leader>?',        teleb.oldfiles)
-
-bind({
+bind({{
     module = 'telescope.builtin',
     {'n', '<leader><space>',  'buffers'},
     {'n', '<leader>sf',       'find_files'},
@@ -53,4 +75,9 @@ bind({
     {'n', '<leader>sp',       'live_grep'},
     {'n', '<leader>so',       'tags', args = { { only_current_buffer = true } }},
     {'n', '<leader>?',        'oldfiles'},
-})
+}})
+
+-- vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float)
+-- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+-- vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+-- vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist)
