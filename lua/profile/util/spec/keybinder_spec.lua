@@ -37,27 +37,7 @@ describe("bind", function ()
     end)
   end
 
-  -- Regular bindings
-  describe("{{'n', 'o', 'v'}, 'w', ':put'}", function ()
-    standard_tests(
-      {{ { {'n', 'o', 'v'}, 'w', ':put' } }},
-      match.same({'n', 'o', 'v'}), 'w', ':put')
-  end)
-  describe("{'n', 'w', ':put'}", function ()
-    standard_tests( {{ {'n', 'w', ':put'} }}, 'n', 'w', ':put')
-  end)
-
-  describe("module = 'testmodule',", function ()
-    describe("{'n', 'w', 'dummy_fn'}", function ()
-      standard_tests({{
-          module = 'profile.util.spec.testmodule',
-          {'n', 'w', 'dummy_fn'}
-        }}, 'n', 'w',
-        require('profile.util.spec.testmodule').dummy_fn,
-        match.same({
-          desc = 'profile.util.spec.testmodule.dummy_fn'
-        }))
-    end)
+  local function tbl_and_module_tests(bind_arg, ...)
 
     it("Should not overwrite a desc provided in opts", function ()
       bind {{
@@ -73,20 +53,112 @@ describe("bind", function ()
         }))
     end)
 
-    it("Should not overwrite ", function ()
+    it("Should not change anything in provided opts", function ()
       bind {{
           module = 'profile.util.spec.testmodule',
-          {'n', 'w', 'dummy_fn', {desc = "Dummy Desc"}}
+          {'n', 'w', 'dummy_fn', {silent = true}}
         }}
       assert.stub(keymap.set).was_called()
-      assert.stub(keymap.set).was_called_with(
+      assert.stub(keymap.set, "").was_called_with(
         'n', 'w',
         require('profile.util.spec.testmodule').dummy_fn,
         match.same({
-          desc = 'Dummy Desc'
+          desc = 'profile.util.spec.testmodule.dummy_fn',
+          silent = true
         }))
     end)
+  end
 
+  -- Regular bindings
+  describe("{{'n', 'o', 'v'}, 'w', ':put'}", function ()
+    standard_tests(
+      {{ { {'n', 'o', 'v'}, 'w', ':put' } }},
+      match.same({'n', 'o', 'v'}), 'w', ':put')
+  end)
+  describe("{'n', 'w', ':put'}", function ()
+    standard_tests( {{ {'n', 'w', ':put'} }}, 'n', 'w', ':put')
+  end)
+
+  describe("module = 'testmodule',", function ()
+    describe("without args", function ()
+      standard_tests({{
+          module = 'profile.util.spec.testmodule',
+          {'n', 'w', 'dummy_fn'},
+        }}, 'n', 'w',
+        require('profile.util.spec.testmodule').dummy_fn,
+        match.same({
+          desc = 'profile.util.spec.testmodule.dummy_fn'
+        }))
+
+      it("Should not overwrite a desc provided in opts", function ()
+        bind {{
+            module = 'profile.util.spec.testmodule',
+            {'n', 'w', 'dummy_fn', {desc = "Dummy Desc"}}
+          }}
+        assert.stub(keymap.set).was_called()
+        assert.stub(keymap.set).was_called_with(
+          'n', 'w',
+          require('profile.util.spec.testmodule').dummy_fn,
+          match.same({
+            desc = 'Dummy Desc'
+          }))
+      end)
+
+      it("Should not change anything in provided opts besides desc", function ()
+        bind {{
+            module = 'profile.util.spec.testmodule',
+            {'n', 'w', 'dummy_fn', {silent = true}},
+          }}
+        assert.stub(keymap.set).was_called()
+        assert.stub(keymap.set).was_called_with(
+          'n', 'w',
+          require('profile.util.spec.testmodule').dummy_fn,
+          match.all_of(match.same({
+            desc = 'profile.util.spec.testmodule.dummy_fn',
+            silent = true
+          })))
+      end)
+    end)
+
+    describe("with args", function ()
+      standard_tests({{
+          module = 'profile.util.spec.testmodule',
+          {'n', 'w', 'dummy_fn', args = 'test arg'},
+        }}, 'n', 'w',
+        match.none_of(match.equals(require('profile.util.spec.testmodule').dummy_fn)),
+        match.same({
+          desc = 'profile.util.spec.testmodule.dummy_fn "test arg"'
+        }))
+
+      it("Should not overwrite a desc provided in opts", function ()
+        bind {{
+            module = 'profile.util.spec.testmodule',
+            {'n', 'w', 'dummy_fn', {desc = "Dummy Desc"}, args = 'test arg'}
+          }}
+        assert.stub(keymap.set).was_called()
+        assert.stub(keymap.set).was_called_with(
+          'n', 'w',
+          match.none_of(match.equals(require('profile.util.spec.testmodule').dummy_fn)),
+          match.same({
+            desc = 'Dummy Desc'
+          }))
+      end)
+
+      it("Should not change anything in provided opts besides desc", function ()
+        bind {{
+            module = 'profile.util.spec.testmodule',
+            {'n', 'w', 'dummy_fn', {silent = true}, args = 'test arg'},
+          }}
+        assert.stub(keymap.set).was_called()
+        assert.stub(keymap.set).was_called_with(
+          'n', 'w',
+          match.none_of(match.equals(require('profile.util.spec.testmodule').dummy_fn)),
+          match.all_of(match.same({
+            desc = 'profile.util.spec.testmodule.dummy_fn "test arg"',
+            silent = true
+          })))
+      end)
+    end)
   end)
 
   describe("tbl = {dummy_tbl, 'dummy_tbl'}", function ()
@@ -102,57 +174,4 @@ describe("bind", function ()
         }))
     end)
   end)
-  -- describe("bind tbl", function ()
-  --   local dummy_tbl = { dummy_fn = function () end }
-  --   it("Should bind to functions in a supplied table", function ()
-  --     bind {{
-  --       tbl = { dummy_tbl, 'dummy_tbl', },
-  --       {'n', 'w', 'dummy_fn'}
-  --     }}
-  --     assert.stub(keymap.set).was_called(1)
-  --     assert.stub(keymap.set).was_called_with(
-  --       match.equals('n'),
-  --       match.equals('w'),
-  --       match.equals(require('profile.util.spec.testmodule').dummy_fn),
-  --       match._,
-  --       match.same({
-  --         desc = 'profile.util.spec.testmodule.dummy_fn'
-  --       }))
-  --   end)
-  --   it("Should bind and supply an automatic desc to opts", function ()
-  --     bind {{
-  --       tbl = { dummy_tbl, 'dummy_tbl', },
-  --       {'n', 'w', 'dummy_fn'}
-  --     }}
-  --     assert.stub(keymap.set).was_called(1)
-  --     assert.stub(keymap.set).was_called_with(
-  --       match.equals('n'),
-  --       match.equals('w'),
-  --       match._,
-  --       match.same({ desc = 'dummy_tbl.dummy_fn' }))
-  --   end)
-  -- end)
-  -- describe("bind module", function ()
-  --   it("Should bind module functions with vim.keymap.set", function ()
-  --     bind {{
-  --       module = 'profile.util.spec.testmodule',
-  --       {'n', 'w', 'dummy_fn'}
-  --     }}
-  --     assert.stub(keymap.set).was_called(1)
-  --   end)
-  --   it("Should require the module and create opt.desc", function ()
-  --     bind {{
-  --       module = 'profile.util.spec.testmodule',
-  --       {'n', 'w', 'dummy_fn'}
-  --     }}
-  --     assert.stub(keymap.set).was_called(1)
-  --     assert.stub(keymap.set).was_called_with(
-  --       match.equals('n'),
-  --       match.equals('w'),
-  --       match.equals(require('profile.util.spec.testmodule').dummy_fn),
-  --       match.same({
-  --         desc = 'profile.util.spec.testmodule.dummy_fn'
-  --       }))
-  --   end)
-  -- end)
 end)
