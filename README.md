@@ -11,7 +11,7 @@ these are the ones I am currently aware of.
 - ripgrep (if you want live\_grep functionalit from telescope)
 - fzf (used to improve telescope functionality)
 - bat (used to improve telescope preview)
-- nodejs and npm (I think this is used by treesitter)
+- nodejs and npm (I think this is used by treesitter and some other stuff.)
 - ctags (needed for tagbar but is very slow on windows so you might skip it)
 
 ## Optional Plugin Setup  
