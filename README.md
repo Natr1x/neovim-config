@@ -8,6 +8,7 @@ This is my personal neovim configuration. Feel free to fork, copy, or steal it.
 Stupidly I have not kept track on exactly what is needed but these include
 these are the ones I am currently aware of.
 
+- Any NerdFont (This will probably look awful if you do not have extra icons)
 - ripgrep (if you want live\_grep functionalit from telescope)
 - fzf (used to improve telescope functionality)
 - bat (used to improve telescope preview)
