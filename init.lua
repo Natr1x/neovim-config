@@ -20,6 +20,7 @@ require('packer').startup(function(use)
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'ludovicchabant/vim-gutentags' -- Automatic tags management
   use 'ap/vim-css-color'
+  -- use 'mg979/vim-visual-multi' -- Multiple cursors
   -- Color themes
   use 'folke/tokyonight.nvim'
   use 'gustavo-hms/garbo'
@@ -72,4 +73,7 @@ require 'profile.plugins'
 set_bindings()
 
 -- Set the color scheme
-vim.cmd [[ colorscheme tokyonight ]]
+if not COLOR_SET then -- Tokyonight breaks if you set it more than once :/
+  COLOR_SET = true
+  vim.cmd [[ colorscheme tokyonight ]]
+end
