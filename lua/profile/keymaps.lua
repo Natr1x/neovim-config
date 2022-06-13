@@ -1,13 +1,13 @@
 local bind = require('profile.util.keybinder')
 
 local M = {}
---Remap for dealing with word wrap
--- vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
--- vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 M.after_init = function ()
   bind {
-    { -- Keybindings for Hop (Easymotion)
+    { -- Remap for dealing with word wrap
+      { 'n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true } },
+      { 'n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true } },
+      -- Keybindings for Hop (Easymotion)
       { {'n', 'o', 'v'}, '<leader>w', ':HopWordAC<cr>' },
       { {'n', 'o', 'v'}, '<leader>b', ':HopWordBC<cr>' },
       { {'n', 'o', 'v'}, '<leader>k', ':HopLineStartBC<cr>' },
