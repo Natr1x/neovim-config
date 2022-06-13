@@ -14,7 +14,7 @@ This is my personal neovim configuration. Feel free to fork, copy, or steal it.
     git clone https://github.com/Natr1x/neovim-config.git ~/.config/nvim
     ```
 2. Run `:PackerInstall` from nvim. The first time (and maybe the second) you
-   will probably see a lot of error. Do not worry, just restart nvim and
+   will probably see a lot of errors. Do not worry, just restart nvim and
    run it again until they go away.
 
 
