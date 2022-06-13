@@ -130,7 +130,13 @@ describe("bind", function ()
   end)
 
   describe("tbl = {dummy_tbl, 'dummy_tbl'}", function ()
-    local dummy_tbl = { dummy_fn = function () end }
+    local dummy_tbl = {
+      dummy_fn = function () end,
+      afun = function () end,
+      bfun = function () end,
+      cfun = function () end,
+      dfun = function () end,
+    }
     describe("{'n', 'w', 'dummy_fn'}", function ()
       standard_tests({{
           tbl = {dummy_tbl, 'dummy_tbl'},
@@ -141,6 +147,43 @@ describe("bind", function ()
           desc = 'dummy_tbl.dummy_fn'
         }))
     end)
+
+    describe("multiple bindings", function ()
+      it("Should set correct desc even if multiple bindings are provided with the same opts", function ()
+        local opts = { silent = true }
+        bind {
+          {
+            tbl = { dummy_tbl, 'dummy_tbl' },
+            { 'n', 'a', 'afun', opts },
+            { 'n', 'b', 'bfun', opts },
+            { 'n', 'c', 'cfun', opts },
+            { 'n', 'd', 'dfun', opts, args = 'test arg' },
+          }
+        }
+        assert.stub(keymap.set).was_called(4)
+        assert.stub(keymap.set, 'afun desc is dummy_tbl.afun').was_called_with(
+          'n', 'a', dummy_tbl.afun, match.same({
+            desc = 'dummy_tbl.afun',
+            silent = true
+        }))
+        assert.stub(keymap.set, 'bfun desc is dummy_tbl.bfun').was_called_with(
+          'n', 'b', dummy_tbl.bfun, match.same({
+            desc = 'dummy_tbl.bfun',
+            silent = true
+        }))
+        assert.stub(keymap.set, 'cfun desc is dummy_tbl.cfun').was_called_with(
+          'n', 'c', dummy_tbl.cfun, match.same({
+            desc = 'dummy_tbl.cfun',
+            silent = true
+        }))
+        assert.stub(keymap.set, 'dfun desc is dummy_tbl.dfun').was_called_with(
+          'n', 'd', match._, match.same({
+            desc = 'dummy_tbl.dfun "test arg"',
+            silent = true
+        }))
+      end)
+    end)
+
     describe("without args", function ()
       standard_tests({{
           tbl = { dummy_tbl, 'dummy_tbl' },
