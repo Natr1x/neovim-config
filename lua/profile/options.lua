@@ -11,6 +11,17 @@ vim.opt.completeopt    =  'menuone,noselect,longest'
 vim.opt.wildmode       =  { 'longest:full', 'full' }
 vim.opt.wildoptions    =  { 'pum' }
 
+vim.opt.number          = true  -- Show current line number
+vim.opt.relativenumber  = true  -- Show relative line numbers
+vim.opt.spr             = true  -- Splits to the right when splitting vertically
+
+vim.opt.shiftwidth      = 4     -- Tabs are 4 spaces wide
+vim.opt.tabstop         = 4     -- Tabs stop every 4 columns even if smaller than above
+vim.opt.expandtab       = true  -- Tabs are automatically turned into spaces
+vim.opt.smarttab        = true  -- Tabs try to follow indentation
+
+vim.opt.cursorline      = true  -- Highlights the linenumber the cursor is currently on
+
 vim.wo.signcolumn      =  'yes'
 vim.wo.number          =  true
 vim.wo.relativenumber  =  true
