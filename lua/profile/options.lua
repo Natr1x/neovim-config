@@ -15,11 +15,6 @@ vim.wo.signcolumn      =  'yes'
 vim.wo.number          =  true
 vim.wo.relativenumber  =  true
 
---Remap space as leader key, done here so plugins can be made aware
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ','
-
 -- TokyoNight Theme specific options
 vim.g.tokyonight_style                =  "night"
 vim.g.tokyonight_transparent          =  true

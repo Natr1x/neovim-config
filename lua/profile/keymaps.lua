@@ -2,6 +2,11 @@ local bind = require('profile.util.keybinder')
 
 local M = {}
 
+--Remap space as leader key, done here so plugins can be made aware
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ','
+
 M.after_init = function ()
   bind {
     { -- Remap for dealing with word wrap
@@ -15,6 +20,10 @@ M.after_init = function ()
       { {'n', 'o', 'v'}, '<leader>f', ':HopChar1AC<cr>' },
       { {'n', 'o', 'v'}, '<leader>F', ':HopChar1BC<cr>' },
       { {'n', 'o', 'v'}, '<leader>/', ':HopPatternMW<cr>' },
+      -- Keybindings for Vista / Tagbar
+      { 'n', '<F8>', ':TagbarToggle<cr>', { silent = true } },
+      { 'i', '<F8>', '<Esc>:TagbarToggle<cr>', { silent = true } }
+
     },
     { -- Keybindings for Telescope
       module = 'telescope.builtin',
