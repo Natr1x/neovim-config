@@ -21,6 +21,7 @@ require('packer').startup(function(use)
   use 'ludovicchabant/vim-gutentags' -- Automatic tags management
   use 'ap/vim-css-color'
   use 'mg979/vim-visual-multi' -- Multiple cursors
+  use 'michaeljsmith/vim-indent-object'
   -- Color themes
   use 'folke/tokyonight.nvim'
   use 'gustavo-hms/garbo'
