@@ -26,7 +26,6 @@ require('packer').startup(function(use)
   use 'OmniSharp/omnisharp-vim'
   use 'kyazdani42/nvim-web-devicons'
   use 'inkarkat/vim-ReplaceWithRegister'
-  -- use 'liuchengxu/vista.vim'
   use 'preservim/tagbar'
   use { -- Replaces Easymotion
     'phaazon/hop.nvim', branch = 'v1', -- optional but strongly recommended
@@ -41,8 +40,6 @@ require('packer').startup(function(use)
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use 'mjlbach/onedark.nvim' -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-  -- use 'vim-airline/vim-airline'
-  -- use 'vim-airline/vim-airline-themes'
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
   -- Add git related info in the signs columns and popups
@@ -61,3 +58,18 @@ require('packer').startup(function(use)
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
 end)
 
+-- Load options profile first
+require 'profile.options'
+
+-- Load keymaps profile but wait to set bindings til after plugins have been
+-- setup so their setup does not override them.
+local set_bindings = require('profile.keymaps').after_init
+
+-- Run setup for the various plugins
+require 'profile.plugins'
+
+-- Set the keybindings from the profile
+set_bindings()
+
+-- Set the color scheme
+vim.cmd [[ colorscheme tokyonight ]]
