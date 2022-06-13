@@ -23,3 +23,12 @@ currently aware of.
 - `:TSInstall` Installs language specific stuff for treesitter, eg. `:TSInstall lua`
   to get better treesitter functionality for lua files.
 
+## Testing  
+
+Tests have far from 100% code coverage but some tests for the configs utility
+lua scripts do exist. Hopefully I will add more...  
+
+Regardless you can run them with:  
+```bash
+vim --headless -c "PlenaryBustedDirectory $(git rev-parse --show-toplevel) { minimal = true }"
+```
