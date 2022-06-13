@@ -37,38 +37,6 @@ describe("bind", function ()
     end)
   end
 
-  local function tbl_and_module_tests(bind_arg, ...)
-
-    it("Should not overwrite a desc provided in opts", function ()
-      bind {{
-          module = 'profile.util.spec.testmodule',
-          {'n', 'w', 'dummy_fn', {desc = "Dummy Desc"}}
-        }}
-      assert.stub(keymap.set).was_called()
-      assert.stub(keymap.set).was_called_with(
-        'n', 'w',
-        require('profile.util.spec.testmodule').dummy_fn,
-        match.same({
-          desc = 'Dummy Desc'
-        }))
-    end)
-
-    it("Should not change anything in provided opts", function ()
-      bind {{
-          module = 'profile.util.spec.testmodule',
-          {'n', 'w', 'dummy_fn', {silent = true}}
-        }}
-      assert.stub(keymap.set).was_called()
-      assert.stub(keymap.set, "").was_called_with(
-        'n', 'w',
-        require('profile.util.spec.testmodule').dummy_fn,
-        match.same({
-          desc = 'profile.util.spec.testmodule.dummy_fn',
-          silent = true
-        }))
-    end)
-  end
-
   -- Regular bindings
   describe("{{'n', 'o', 'v'}, 'w', ':put'}", function ()
     standard_tests(
@@ -172,6 +140,85 @@ describe("bind", function ()
         match.same({
           desc = 'dummy_tbl.dummy_fn'
         }))
+    end)
+    describe("without args", function ()
+      standard_tests({{
+          tbl = { dummy_tbl, 'dummy_tbl' },
+          {'n', 'w', 'dummy_fn'},
+        }}, 'n', 'w',
+        dummy_tbl.dummy_fn,
+        match.same({
+          desc = 'dummy_tbl.dummy_fn'
+        }))
+
+      it("Should not overwrite a desc provided in opts", function ()
+        bind {{
+            tbl = { dummy_tbl, 'dummy_tbl' },
+            {'n', 'w', 'dummy_fn', {desc = "Dummy Desc"}}
+          }}
+        assert.stub(keymap.set).was_called()
+        assert.stub(keymap.set).was_called_with(
+          'n', 'w',
+          dummy_tbl.dummy_fn,
+          match.same({
+            desc = 'Dummy Desc'
+          }))
+      end)
+
+      it("Should not change anything in provided opts besides desc", function ()
+        bind {{
+            tbl = { dummy_tbl, 'dummy_tbl' },
+            {'n', 'w', 'dummy_fn', {silent = true}},
+          }}
+        assert.stub(keymap.set).was_called()
+        assert.stub(keymap.set).was_called_with(
+          'n', 'w',
+          dummy_tbl.dummy_fn,
+          match.all_of(match.same({
+            desc = 'dummy_tbl.dummy_fn',
+            silent = true
+          })))
+      end)
+    end)
+
+    describe("with args", function ()
+      standard_tests({{
+          tbl = { dummy_tbl, 'dummy_tbl' },
+          {'n', 'w', 'dummy_fn', args = 'test arg'},
+        }}, 'n', 'w',
+        match.none_of(match.equals(dummy_tbl.dummy_fn)),
+        match.same({
+          desc = 'dummy_tbl.dummy_fn "test arg"'
+        }))
+
+      it("Should not overwrite a desc provided in opts", function ()
+        bind {{
+            tbl = { dummy_tbl, 'dummy_tbl' },
+            {'n', 'w', 'dummy_fn', {desc = "Dummy Desc"}, args = 'test arg'}
+          }}
+        assert.stub(keymap.set).was_called()
+        assert.stub(keymap.set).was_called_with(
+          'n', 'w',
+          match.none_of(match.equals(dummy_tbl.dummy_fn)),
+          match.same({
+            desc = 'Dummy Desc'
+          }))
+      end)
+
+      it("Should not change anything in provided opts besides desc", function ()
+        bind {{
+            tbl = { dummy_tbl, 'dummy_tbl' },
+            {'n', 'w', 'dummy_fn', {silent = true}, args = 'test arg'},
+          }}
+        assert.stub(keymap.set).was_called()
+        assert.stub(keymap.set).was_called_with(
+          'n', 'w',
+          match.none_of(match.equals(dummy_tbl.dummy_fn)),
+          match.all_of(match.same({
+            desc = 'dummy_tbl.dummy_fn "test arg"',
+            silent = true
+          })))
+      end)
     end)
   end)
 end)
