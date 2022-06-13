@@ -22,8 +22,9 @@ M.after_init = function ()
       { {'n', 'o', 'v'}, '<leader>/', ':HopPatternMW<cr>' },
       -- Keybindings for Vista / Tagbar
       { 'n', '<F8>', ':TagbarToggle<cr>', { silent = true } },
-      { 'i', '<F8>', '<Esc>:TagbarToggle<cr>', { silent = true } }
-
+      { 'i', '<F8>', '<Esc>:TagbarToggle<cr>', { silent = true } },
+      -- Escape from terminal emulator
+      { 't', '<C-o><C-o>', '<C-\\><C-N>' },
     },
     { -- Keybindings for Telescope
       module = 'telescope.builtin',
