@@ -9,7 +9,6 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Enable the following language servers
 local servers = {
-  'clangd',
   'rust_analyzer',
   'pyright',
   'tsserver',
@@ -22,6 +21,15 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+lspconfig.clangd.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = {
+    'clangd',
+    '--query-driver="/usr/bin/arm-none-eabi-gcc,/usr/bin/arm-none-eabi-g*"',
+  }
+}
 
 -- Example custom server
 -- Make runtime files discoverable to the server
