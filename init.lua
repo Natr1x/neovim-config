@@ -58,6 +58,8 @@ require('packer').startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp'
   use 'saadparwaiz1/cmp_luasnip'
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
+  -- Custom helpers
+  use 'gbrlsnchs/winpick.nvim' -- Used in lua/profile/util/window_tools.lua
 end)
 
 -- Load options profile first

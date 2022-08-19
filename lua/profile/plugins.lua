@@ -115,6 +115,16 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
+-- Lua plugin for creating window navigation tools
+local winpick = require 'winpick'
+winpick.setup {
+  border = "double",
+  filter = nil, -- Can be used to ignore certain windows
+  prompt = "Pick a window: ",
+  format_label = winpick.defaults.format_label, -- formatted as "<label>: <buffer name>"
+  chars = nil,
+}
+
 -- LSP settings
 require 'profile.setups.lsp'
 

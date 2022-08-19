@@ -44,6 +44,12 @@ M.after_init = function ()
       { 'n', '[d',              'goto_prev' },
       { 'n', ']d',              'goto_next' },
       { 'n', '<LocalLeader>q',  'setloclist' },
+    },
+    {
+      module = 'profile.util.window_tools',
+      { {'n', 'o', 'v' }, '<leader>g', 'move_to' },
+      { {'n', 'o', 'v' }, '<leader>T', 'transpose' },
+      { {'n', 'o', 'v' }, '<leader>t', 'transpose', args = { true } }
     }
   }
 end
