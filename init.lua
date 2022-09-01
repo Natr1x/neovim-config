@@ -58,6 +58,9 @@ require('packer').startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp'
   use 'saadparwaiz1/cmp_luasnip'
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
+  -- Debug Adapter Protocol
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+  use "Shatur/neovim-cmake"
   -- Custom helpers
   use 'gbrlsnchs/winpick.nvim' -- Used in lua/profile/util/window_tools.lua
 end)
@@ -71,6 +74,9 @@ local set_bindings = require('profile.keymaps').after_init
 
 -- Run setup for the various plugins
 require 'profile.plugins'
+
+-- Set up machine specific settings
+require 'profile.machine_local'
 
 -- Set the keybindings from the profile
 set_bindings()
