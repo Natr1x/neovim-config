@@ -132,7 +132,7 @@ require 'profile.setups.lsp'
 require 'profile.setups.dap'
 
 -- Commented options are defaults
--- local Path = require('plenary.path')
+local Path = require('plenary.path')
 require('cmake').setup({
   cmake_executable = 'cmake', -- CMake executable to run.
 
@@ -155,7 +155,7 @@ require('cmake').setup({
   -- samples_path = tostring(script_path:parent():parent():parent() / 'samples'),
 
   -- Default folder for creating project.
-  -- default_projects_path = tostring(Path:new(vim.loop.os_homedir(), 'Projects')),
+  default_projects_path = tostring(Path:new(vim.loop.os_homedir(), 'labb')),
 
   -- Default arguments that will be always passed at cmake configure step.
   -- By default tells cmake to generate `compile_commands.json`.
@@ -177,13 +177,16 @@ require('cmake').setup({
   -- Copy compile_commands.json to current working directory.
   copy_compile_commands = false,
 
-  -- DAP configuration. By default configured to work with `lldb-vscode`.
-  dap_configuration = {
-    type = "cppdbg",
-    request = "launch",
-    cwd = '${workspaceFolder}',
-    stopAtEntry = true,
+  -- DAP configuration.
+  dap_configurations = {
+    cppdbg = {
+      type = "cppdbg",
+      request = "launch",
+      -- cwd = '${workspaceFolder}',
+      stopAtEntry = true,
+    }
   },
+  dap_configuration = 'cppdbg_vscode',
 
   -- Command to run after starting DAP session.
   -- You can set it to `false` if you don't want to open anything
