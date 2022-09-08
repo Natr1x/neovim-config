@@ -1,9 +1,67 @@
+---@class Highlight
+---@field fg string|nil
+---@field bg string|nil
+---@field sp string|nil
+---@field style string|nil
+
+-- Setup the tokyonight theme
+require("tokyonight").setup({
+  style = "night", -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
+  transparent = true, -- Enable this to disable setting the background color
+  terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+  styles = {
+    -- Style to be applied to different syntax groups
+    -- Value is any valid attr-list value `:help attr-list`
+    comments = "NONE",
+    keywords = "italic",
+    functions = "NONE",
+    variables = "NONE",
+    -- Background styles. Can be "dark", "transparent" or "normal"
+    sidebars = "dark", -- style for sidebars, see below
+    floats = "dark", -- style for floating windows
+  },
+
+  -- Set a darker background on sidebar-like windows.
+  -- For example: `["qf", "vista_kind", "terminal", "packer"]`
+  sidebars = { "vista_kind", "tagbar", "packer" },
+
+  -- Adjusts the brightness of the colors of the **Day** style.
+  -- Number between 0 and 1, from dull to vibrant colors
+  day_brightness = 0.3,
+
+  -- Hide inactive statuslines and replace them with a thin border instead.
+  -- Should work with the standard **StatusLine** and **LuaLine**.
+  hide_inactive_statusline = false,
+  dim_inactive = false, -- dims inactive windows
+  lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
+
+  --- You can override specific color groups to use other groups or a hex color
+  --- fucntion will be called with a ColorScheme table
+  ---@param colors ColorScheme
+  on_colors = function(colors)
+    colors.comment = '#4b8e44'
+  end,
+
+  --- You can override specific highlights to use other groups or a hex color
+  --- fucntion will be called with a Highlights and ColorScheme table
+  ---@param highlights table<string, Highlight>
+  ---@param colors ColorScheme
+  on_highlights = function(highlights, colors)
+    highlights.TreesitterContextLineNumber = { fg = 'red', bg = colors.bg_dark }
+    highlights.lualine_tabs_inactive = { bg = colors.bg_dark, fg = colors.fg_gutter }
+    highlights.lualine_c_inactive = { fg = 'red' }
+  end,
+})
+
+-- local theme = require'lualine.themes.tokyonight'
+
+
 -- Set statusbar
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    -- theme = 'onedark',
     theme = 'tokyonight',
+    -- theme = theme,
     component_separators = {
       right = '',
       left = '',
@@ -15,13 +73,26 @@ require('lualine').setup {
     },
   },
   tabline = {
-    lualine_a = { { 'tabs', mode = 1 } },
+    lualine_a = {
+      {
+        'tabs',
+        mode = 1,
+        tabs_color = { active = {}, inactive = 'lualine_tabs_inactive' }
+      }
+    },
     lualine_b = {},
     lualine_c = {},
     lualine_x = {},
     lualine_y = {},
-    lualine_z = { { 'buffers', mode = 4 } }
-  }
+    lualine_z = {
+      {
+        'buffers',
+        mode = 4,
+        buffers_color = { active = {}, inactive = 'lualine_tabs_inactive' }
+      }
+    }
+  },
+  extensions = { 'quickfix', 'fugitive', 'nvim-dap-ui' },
 }
 
 --Enable Comment.nvim
@@ -133,6 +204,7 @@ require 'profile.setups.dap'
 
 -- Commented options are defaults
 local Path = require('plenary.path')
+local CMakeProjectConfig = require 'cmake.project_config'
 require('cmake').setup({
   cmake_executable = 'cmake', -- CMake executable to run.
 
@@ -148,7 +220,7 @@ require('cmake').setup({
   -- Build directory. The expressions `{cwd}`, `{os}` and `{build_type}`
   -- will be expanded with the corresponding text values.
   -- Could be a function that return the path to the build directory.
-  -- build_dir = tostring(Path:new('{cwd}', 'build', '{os}-{build_type}')),
+  build_dir = tostring(Path:new('{cwd}', 'build')),
 
   -- Folder with samples.
   -- `samples` folder from the plugin directory is used by default.
@@ -182,8 +254,45 @@ require('cmake').setup({
     cppdbg = {
       type = "cppdbg",
       request = "launch",
-      -- cwd = '${workspaceFolder}',
       stopAtEntry = true,
+    },
+    windows_gdb_from_wsl = {
+      type = 'cppdbg',
+      request = 'launch',
+      stopAtEntry = true,
+      MIMode = 'gdb',
+      miDebuggerServerAddress = function ()
+        local host = vim.fn.systemlist({'grep', '-Po', '(?<=^nameserver )[\\.\\d]+', '/etc/resolv.conf'})
+        return host[1] .. ':3333'
+      end,
+      miDebuggerPath = '/usr/bin/gdb-multiarch',
+      miDebuggerArgs = '-exec load',
+    },
+    pico_debug = {
+      type = 'cortex-debug',
+      request = 'launch',
+      servertype = 'openocd',
+      runToMain = true,
+      device = 'RP2040',
+      postRestartCommands = {
+        'break main',
+        'continue'
+      },
+      configFiles = {
+        'interface/picoprobe.cfg',
+        'target/rp2040.cfg'
+      },
+      executable = function ()
+        local project_config = CMakeProjectConfig.new()
+        local _, target, _ = project_config:get_current_target()
+        return target and target.filename
+      end,
+      -- @TODO: Set paths in a relative way
+      gdbPath = '/mnt/c/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/11.2 2022.02/bin/arm-none-eabi-gdb.exe',
+      svdFile = '/home/osksod/documents/nep-projects/lightlab/liquinex/external/pico-sdk/src/rp2040/hardware_regs/rp2040.svd',
+      searchDir = {
+        '/mnt/c/Users/osksod/Documents/tools/pico-tools/openocd-branch-rp2040-f8w14ec-windows/tcl'
+      }
     }
   },
   dap_configuration = 'cppdbg_vscode',

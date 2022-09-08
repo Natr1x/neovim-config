@@ -7,7 +7,10 @@ local cppdbg_settings = {
   ---@type "string"
   ---Absolute path to extension/debugAdapters/bin/OpenDebugAD7 in 
   ---vscode-cpptools from https://github.com/microsoft/vscode-cpptools/release
-  vscode_cpptools_path = nil
+  vscode_cpptools_path = nil,
+
+  ---@type "string"
+  vscode_cortex_debug_path = nil,
 }
 
 local M = {
@@ -24,6 +27,13 @@ local M = {
         id = 'cppdbg',
         type = 'executable',
         command = settings.vscode_cpptools_path
+      }
+
+      dap.adapters['cortex-debug'] = {
+        id = 'cortex-debug',
+        type = 'executable',
+        command = 'node',
+        args = { settings.vscode_cortex_debug_path },
       }
     end
   }

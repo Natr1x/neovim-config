@@ -26,9 +26,4 @@ vim.wo.signcolumn      =  'yes'
 vim.wo.number          =  true
 vim.wo.relativenumber  =  true
 
--- TokyoNight Theme specific options
-vim.g.tokyonight_style                =  "night"
-vim.g.tokyonight_transparent          =  true
-vim.g.tokyonight_transparent_sidebar  =  false
-vim.g.tokyonight_sidebars             = { "vista_kind", "vista", "tagbar", "packer" }
-vim.g.tokyonight_colors               = { comment = '#4b8e44' }
+vim.opt.listchars     = 'eol:$,tab:>-,trail:~,extends:>,precedes:<'
