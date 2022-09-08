@@ -7,6 +7,28 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
 
+local dap_bindings = {
+  { 'n', '<LocalLeader>db',  ':DapToggleBreakpoint<cr>', { silent = true } },
+  { 'n', '<LocalLeader>dc',  ':DapContinue<cr>', { silent = true } },
+  { 'n', '<LocalLeader>dsi',  ':DapStepInto<cr>', { silent = true } },
+  { 'n', '<LocalLeader>dso',  ':DapStepOver<cr>', { silent = true } },
+  { 'n', '<LocalLeader>dsO',  ':DapStepOut<cr>', { silent = true } },
+}
+
+local function c_and_cpp()
+  bind {
+    {
+      { {'n', 'o', 'v'}, '<M-o>', ':ClangdSwitchSourceHeader<cr>', { silent = true } },
+    },
+    dap_bindings
+  }
+end
+
+M.ft_specific = {
+  c = c_and_cpp,
+  cpp = c_and_cpp,
+}
+
 M.after_init = function ()
   bind {
     { -- Remap for dealing with word wrap
