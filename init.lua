@@ -82,6 +82,14 @@ require 'profile.machine_local'
 -- Set the keybindings from the profile
 set_bindings()
 
+-- Setup custom autocmds
+vim.cmd [[
+augroup RestoreCursorShapeOnExit
+    autocmd!
+    autocmd VimLeave * set guicursor=a:ver20,a:blinkon500,a:blinkoff500
+augroup END
+]]
+
 -- Set the color scheme
 if not COLOR_SET then -- Tokyonight breaks if you set it more than once :/
   COLOR_SET = true
