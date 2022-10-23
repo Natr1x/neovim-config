@@ -1,3 +1,4 @@
 plugin/
 tags
+tags.lock
 lua/profile/local_machine.lua
