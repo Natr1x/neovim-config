@@ -60,6 +60,15 @@ M.after_init = function ()
       { 'n', '<leader>so',      'tags', args = { { only_current_buffer = true } } },
       { 'n', '<leader>?',       'oldfiles' },
     },
+     -- Keybindings for telescope extensions
+    {
+      tbl = {
+        function ()
+          return require('telescope').extensions.file_browser
+        end, "telescope-file-browser"
+      },
+      { 'n', '<leader>e', 'file_browser', args = { { path = "%:p:h" } } }
+    },
     { -- Diagnostic keymaps
       tbl = { vim.diagnostic, 'vim.diagnostic' },
       { 'n', '<LocalLeader>e',  'open_float' },

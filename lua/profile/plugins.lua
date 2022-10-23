@@ -121,6 +121,7 @@ require('gitsigns').setup {
 }
 
 -- Telescope
+local fb_actions = require('telescope').extensions.file_browser.actions
 require('telescope').setup {
   defaults = {
     mappings = {
@@ -130,8 +131,24 @@ require('telescope').setup {
       },
     },
   },
+  extensions = {
+    file_browser = {
+      mappings = {
+        n = {
+          ['c'] = {
+            fb_actions.create,
+            type = "action",
+            opts = { nowait = true }
+          }
+        }
+      }
+    },
+  },
 }
-require('telescope').load_extension 'fzf' -- Enable telescope fzf native
+-- Enable telescope fzf native
+require('telescope').load_extension 'fzf'
+-- Telescope file browser
+require('telescope').load_extension 'file_browser'
 
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
