@@ -10,6 +10,9 @@ local function args_string(args)
 end
 
 local function bind_table(tbl, tbl_desc, mappings)
+  if type(tbl) == "function" then
+    tbl = tbl()
+  end
   for _, m in ipairs(mappings) do
     local mode, lhs, rhs, opts = unpack(m)
     opts = opts or {}
