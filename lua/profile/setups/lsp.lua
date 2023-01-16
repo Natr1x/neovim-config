@@ -12,7 +12,6 @@ local servers = {
   'rust_analyzer',
   'pyright',
   'tsserver',
-  'omnisharp',
   'vimls'
 }
 for _, lsp in ipairs(servers) do
@@ -21,6 +20,14 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+lspconfig.omnisharp.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = {
+    'dotnet', '/home/osksod/tools/omnisharp/Omnisharp.dll'
+  }
+}
 
 lspconfig.clangd.setup {
   on_attach = on_attach,

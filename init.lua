@@ -25,7 +25,7 @@ require('packer').startup(function(use)
   -- Color themes
   use 'folke/tokyonight.nvim'
   use 'gustavo-hms/garbo'
-  use 'OmniSharp/omnisharp-vim'
+  -- use 'OmniSharp/omnisharp-vim'
   use 'kyazdani42/nvim-web-devicons'
   use 'inkarkat/vim-ReplaceWithRegister'
   use 'preservim/tagbar'
@@ -48,7 +48,13 @@ require('packer').startup(function(use)
   -- Add git related info in the signs columns and popups
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   -- Highlight, edit, and navigate code using a fast incremental parsing library
-  use 'nvim-treesitter/nvim-treesitter'
+  use {
+    'nvim-treesitter/nvim-treesitter',
+     run = function()
+      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+     ts_update()
+    end,
+  }
   use 'nvim-treesitter/nvim-treesitter-context'
   -- Additional textobjects for treesitter
   use 'nvim-treesitter/nvim-treesitter-textobjects'
