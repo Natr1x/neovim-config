@@ -91,7 +91,7 @@ M.lsp_on_attach = function (_, bufnr)
       tbl = { vim.lsp.buf, 'vim.lsp.buf' },
       { 'n', 'gD',              'declaration',              opts },
       { 'n', 'gd',              'definition',               opts },
-      { 'n', 'K',               'hover',                    opts },
+      { 'n', '<LocalLeader>h',  'hover',                    opts },
       { 'n', 'gi',              'implementation',           opts },
       { 'n', '<C-k>',           'signature_help',           opts },
       { 'n', '<LocalLeader>D',  'type_definition',          opts },
