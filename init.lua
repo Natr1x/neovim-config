@@ -78,7 +78,9 @@ require('lazy').setup({
   },
   {
     "nvim-telescope/telescope-file-browser.nvim",
-    dependecies = { 'telescope' }
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    }
   },
   'mjlbach/onedark.nvim', -- Theme inspired by Atom
   'nvim-lualine/lualine.nvim', -- Fancier statusline
@@ -97,7 +99,8 @@ require('lazy').setup({
     end,
   },
 
-  -- 'nvim-treesitter/nvim-treesitter-context',
+  'nvim-treesitter/nvim-treesitter-context',
+  'nvim-treesitter/playground',
   -- Additional textobjects for treesitter
   -- use 'nvim-treesitter/nvim-treesitter-textobjects'
   { -- LSP Configuration & Plugins

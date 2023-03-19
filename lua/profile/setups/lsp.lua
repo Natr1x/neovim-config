@@ -116,7 +116,7 @@ mason_lspconfig.setup {
 
 mason_lspconfig.setup_handlers {
   function(server_name)
-    require('lspconfig')[server_name].setup {
+    local setup = {
       capabilities = capabilities,
       on_attach = function (client, buffnr)
         if client.server_capabilities.signatureHelpProvider then
@@ -126,6 +126,12 @@ mason_lspconfig.setup_handlers {
       end,
       settings = servers[server_name],
     }
+    if server_name == 'omnisharp' then
+      setup.handles = {
+        ['textDocument/definition'] = require('omnisharp_extended').handler
+      }
+    end
+    require('lspconfig')[server_name].setup(setup)
   end,
 }
 
