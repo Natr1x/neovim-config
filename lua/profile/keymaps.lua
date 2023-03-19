@@ -15,6 +15,8 @@ local dap_bindings = {
   { 'n', '<LocalLeader>dsO',  ':DapStepOut<cr>', { silent = true } },
 }
 
+M.dap_bindings = dap_bindings
+
 local function c_and_cpp()
   bind {
     {
@@ -92,8 +94,9 @@ M.lsp_on_attach = function (_, bufnr)
       { 'n', 'gD',              'declaration',              opts },
       { 'n', 'gd',              'definition',               opts },
       { 'n', '<LocalLeader>h',  'hover',                    opts },
+      { 'n', '<C-k><C-i>',      'hover',                    opts },
       { 'n', 'gi',              'implementation',           opts },
-      { 'n', '<C-k>',           'signature_help',           opts },
+      { 'n', '<C-k><C-k>',      'signature_help',           opts },
       { 'n', '<LocalLeader>D',  'type_definition',          opts },
       { 'n', '<LocalLeader>rn', 'rename',                   opts },
       { 'n', 'gR',              'references',               opts },

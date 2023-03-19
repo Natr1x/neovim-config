@@ -101,7 +101,7 @@ require('Comment').setup()
 -- Setup Hop (Easymotion)
 require('hop').setup()
 
-require("nvim-lsp-installer").setup {}
+-- require("nvim-lsp-installer").setup {}
 
 -- Indent blankline
 require('indent_blankline').setup {
