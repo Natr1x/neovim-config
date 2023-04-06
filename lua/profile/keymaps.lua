@@ -28,7 +28,7 @@ local dap_bindings = {
   },
 }
 
--- TODO: Setup dap binding for this "dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')"
+-- @TODO: Setup dap binding for this "dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')"
 
 M.dap_bindings = dap_bindings
 
