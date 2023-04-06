@@ -5,48 +5,6 @@ local M = {}
 -- Not sure why I do this but there was probably a reason
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
-local dap_bindings = {
-  {
-    'n', '<LocalLeader>db',  ':DapToggleBreakpoint<cr>',
-    { silent = true, desc = 'Toggle [d]ebug [b]reakpoint' }
-  },
-  {
-    'n', '<LocalLeader>dc',  ':DapContinue<cr>',
-    { silent = true, desc = '[debug] [c]ontinue' }
-  },
-  {
-    'n', '<LocalLeader>dsi',  ':DapStepInto<cr>',
-    { silent = true, desc = '[d]ebug [s]tep [i]nto' }
-  },
-  {
-    'n', '<LocalLeader>dso',  ':DapStepOver<cr>',
-    { silent = true, desc = '[d]ebug [s]tep [o]ver' }
-  },
-  {
-    'n', '<LocalLeader>dsO',  ':DapStepOut<cr>',
-    { silent = true, desc = '[d]ebug [s]tep [O]ut' }
-  },
-}
-
--- @TODO: Setup dap binding for this "dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')"
-
-M.dap_bindings = dap_bindings
-
-local function c_and_cpp()
-  bind {
-    {
-      { {'n', 'o', 'v'}, '<M-o>', ':ClangdSwitchSourceHeader<cr>',
-        { silent = true, desc = 'Switch to header / source' } },
-    },
-    dap_bindings
-  }
-end
-
-M.ft_specific = {
-  c = c_and_cpp,
-  cpp = c_and_cpp,
-}
-
 M.after_init = function ()
   bind {
     {
@@ -144,45 +102,5 @@ M.after_init = function ()
   }
 end
 
-M.lsp_on_attach = function (_, bufnr)
-  local function nmap(keys, func, desc)
-    return { 'n', keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc } }
-  end
-
-  bind {
-    {
-      tbl = { vim.lsp.buf, 'vim.lsp.buf' },
-      nmap('gD',               'declaration',             '[g]oto [D]eclaration'),
-      nmap('gd',               'definition',              '[g]oto [d]efinition'),
-      nmap('<LocalLeader>h',   'hover',                   '[h]over Documentation'),
-      nmap('<C-k><C-i>',       'hover',                   'Hover Documentation'),
-      nmap('gi',               'implementation',          '[g]oto [i]mplementation'),
-      nmap('<C-k><C-k>',       'signature_help',          'Signature Documentation'),
-      nmap('<LocalLeader>D',   'type_definition',         'Type [D]efinition'),
-      nmap('<LocalLeader>rn',  'rename',                  '[r]e[n]ame'),
-      nmap('<LocalLeader>ca',  'code_action',             '[c]ode [a]ction'),
-      nmap('<LocalLeader>wa',  'add_workspace_folder',    '[w]orkspace [a]dd Folder'),
-      nmap('<LocalLeader>wr',  'remove_workspace_folder', '[w]orkspace [r]emove folder'),
-    },
-    {
-      nmap('<LocalLeader>wl', function()
-        print ( vim.inspect( vim.lsp.buf.list_workspace_folders() ) )
-      end, '[w]orkspace [l]ist folders')
-    },
-    {
-      module = 'telescope.builtin',
-      nmap('gR',              'lsp_references',        'search [R]eferences'),
-      nmap('<LocalLeader>so', 'lsp_document_symbols',  '[s]earch document symb[o]ls' ),
-      nmap('<LocalLeader>sO', 'lsp_workspace_symbols', '[s]earch workspace symb[o]ls' ),
-    }
-  }
-
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
-end
-
 return M
-
 -- vim: ts=2 sts=2 sw=2 et
