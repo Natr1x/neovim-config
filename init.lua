@@ -38,7 +38,6 @@ vim.opt.rtp:prepend(lazypath)
 
 -- require('packer').startup(function(use)
 require('lazy').setup({
-  'wbthomason/packer.nvim', -- Package manager
   'tpope/vim-fugitive', -- Git commands in nvim
   'tpope/vim-rhubarb', -- Fugitive-companion to interact with github
   'tpope/vim-surround', -- Surround commands
