@@ -66,16 +66,21 @@ return {
       {
         'williamboman/mason-lspconfig.nvim',
         opts = { ensure_installed = vim.tbl_keys(servers), },
-        config = mason_lspconfig_setup
+        config = mason_lspconfig_setup,
+
+        dependencies = {
+          -- Additional lua configuration, makes nvim stuff amazing!
+          { 'folke/neodev.nvim', opts = {} },
+        },
       },
 
       -- Useful status updates for LSP
       { 'j-hui/fidget.nvim', opts = {} },
-
-      -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
     },
   },
+
+  -- Rust tools
+  'simrat39/rust-tools.nvim',
 
   -- Better function overload handling
   'Issafalcon/lsp-overloads.nvim',
