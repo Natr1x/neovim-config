@@ -1,3 +1,5 @@
+local keymaps = require 'profile.keymaps.git'
+
 return {
   'tpope/vim-fugitive', -- Git commands in nvim
   'tpope/vim-rhubarb',  -- Fugitive-companion to interact with github
@@ -14,6 +16,7 @@ return {
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
+      on_attach = keymaps.gitsigns_attach,
     }
   },
 }

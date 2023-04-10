@@ -11,6 +11,8 @@ local M = {}
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 M.after_init = function ()
+  local git_keymaps = require 'profile.keymaps.git'
+
   local function silent_map(keys, func, desc)
     return {
       {'n', 'o', 'v'}, keys, func, { silent = true, desc = desc, }
@@ -24,11 +26,6 @@ M.after_init = function ()
 
     return { 'n', keys, func, { desc = desc } }
   end
-
-  wk.register({
-    ['<leader>G'] = { name = '+git' },
-    ['<leader>Gs'] = { name = '+gitsearch' },
-  })
 
   bind {
     {
@@ -61,19 +58,11 @@ M.after_init = function ()
       nmap('<leader>sb',      'current_buffer_fuzzy_find',  '[s]earch current [b]uffer'),
       nmap('<leader>sh',      'help_tags',                  '[s]earch [h]elp'),
       nmap('<leader>sw',      'grep_string',                '[s]earch current [w]ord'),
-      nmap('<leader>sg',      'live_grep',                  '[s]earch by [g]rep'),
+      nmap('<leader>sp',      'live_grep',                  '[s]earch by [p]attern'),
       nmap('<leader>sd',      'diagnostics',                '[s]earch [d]iagnostics'),
       nmap('<leader>st',      'tags',                       '[s]earch all [t]ags'),
       nmap('<leader>so',      'tags',                       '[s]earch symb[o]ls in current buffer',
         { { only_current_buffer = true } }),
-
-      -- Telescope git things
-      nmap('<leader>Gsf', 'git_files',    '[G]it [s]earch [f]iles'),
-      nmap('<leader>Gst', 'git_stash',    '[G]it [s]earch s[t]ash'),
-      nmap('<leader>Gss', 'git_status',   '[G]it [s]earch [s]tatus'),
-      nmap('<leader>Gsc', 'git_bcommits', '[G]it [s]earch buffer [c]ommits'),
-      nmap('<leader>GsC', 'git_commits',  '[G]it [s]earch [C]ommits'),
-      nmap('<leader>Gsb', 'git_branches', '[G]it [s]earch [b]ranches'),
     },
 
     -- Keybindings for telescope extensions
@@ -110,6 +99,8 @@ M.after_init = function ()
         args = { true } }
     }
   }
+
+  git_keymaps.after_init()
 end
 
 return M

@@ -53,6 +53,19 @@ local function mason_lspconfig_setup(_, opts)
       setup.handles = {
         ['textDocument/definition'] = require('omnisharp_extended').handler
       }
+    end,
+
+    ['rust_analyzer'] = function ()
+      local lsp_bindings = require 'profile.keymaps.lsp'
+      local set_lsp_keybindings = lsp_bindings.get_on_attach_fn('rust_analyzer')
+      require("rust-tools").setup {
+        server = {
+          on_attach = set_lsp_keybindings,
+        },
+        dap = {
+          adapter = require('mason-nvim-dap.mappings.adapters').codelldb
+        }
+      }
     end
   }
 end

@@ -74,6 +74,26 @@ end
 local specific_attach = {
   c = c_and_cpp,
   cpp = c_and_cpp,
+  ['rust_analyzer'] = function (client, bufnr)
+    local function nmap(keys, func, desc)
+      return { 'n', keys, func, { buffer = bufnr, desc = desc } }
+    end
+    default_attach(client, bufnr)
+
+    bind {
+      {
+        module = 'rust-tools.hover_actions',
+
+        nmap('<LocalLeader>h',  'hover_actions',  '[h]over Documentation'),
+        nmap('<C-k><C-i>',      'hover_actions',  'Hover Documentation'),
+
+      },
+      {
+        module = 'rust-tools.code_action_group',
+        nmap('<LocalLeader>ca', 'code_action_group',  '[c]ode [a]ction'),
+      }
+    }
+  end
 }
 
 local M = {}
