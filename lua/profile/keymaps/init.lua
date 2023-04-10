@@ -1,4 +1,9 @@
 local bind = require('profile.util.keybinder')
+local wk = require 'which-key'
+
+wk.register({
+  ['<leader>s'] = { name = '+search' },
+})
 
 local M = {}
 
