@@ -11,6 +11,25 @@ local M = {}
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 M.after_init = function ()
+  local function silent_map(keys, func, desc)
+    return {
+      {'n', 'o', 'v'}, keys, func, { silent = true, desc = desc, }
+    }
+  end
+
+  local function nmap(keys, func, desc, args)
+    if args then
+      return { 'n', keys, func, { desc = desc }, args = args }
+    end
+
+    return { 'n', keys, func, { desc = desc } }
+  end
+
+  wk.register({
+    ['<leader>G'] = { name = '+git' },
+    ['<leader>Gs'] = { name = '+gitsearch' },
+  })
+
   bind {
     {
       -- Remap for dealing with word wrap
@@ -18,34 +37,13 @@ M.after_init = function ()
       { 'n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true } },
 
       -- Keybindings for Hop (Easymotion)
-      {
-        {'n', 'o', 'v'}, '<leader>w', ':HopWordAC<cr>',
-        { silent = true, desc = 'Hop to [w]ord', }
-      },
-      {
-        {'n', 'o', 'v'}, '<leader>b', ':HopWordBC<cr>',
-        { silent = true, desc = 'Hop to word [b]ackwards', }
-      },
-      {
-        {'n', 'o', 'v'}, '<leader>k', ':HopLineStartBC<cr>',
-        { silent = true, desc = '[k] Hop lines Upwards', }
-      },
-      {
-        {'n', 'o', 'v'}, '<leader>j', ':HopLineStartAC<cr>',
-        { silent = true, desc = '[j] Hop lines Downwards', }
-      },
-      {
-        {'n', 'o', 'v'}, '<leader>f', ':HopChar1AC<cr>',
-        { silent = true, desc = 'Hop to [f]ind forwards', }
-      },
-      {
-        {'n', 'o', 'v'}, '<leader>F', ':HopChar1BC<cr>',
-        { silent = true, desc = 'Hop to [F]ind backwards', }
-      },
-      {
-        {'n', 'o', 'v'}, '<leader>/', ':HopPatternMW<cr>',
-        { silent = true, desc = '[/] Hop to pattern', }
-      },
+      silent_map('<leader>w', ':HopWordAC<cr>',       'Hop to [w]ord'),
+      silent_map('<leader>b', ':HopWordBC<cr>',       'Hop to word [b]ackwards'),
+      silent_map('<leader>k', ':HopLineStartBC<cr>',  '[k] Hop lines Upwards'),
+      silent_map('<leader>j', ':HopLineStartAC<cr>',  '[j] Hop lines Downwards'),
+      silent_map('<leader>f', ':HopChar1AC<cr>',      'Hop to [f]ind forwards'),
+      silent_map('<leader>F', ':HopChar1BC<cr>',      'Hop to [F]ind backwards'),
+      silent_map('<leader>/', ':HopPatternMW<cr>',    '[/] Hop to pattern'),
 
       -- Keybindings for Vista / Tagbar
       { 'n', '<F8>', ':TagbarToggle<cr>', { silent = true, desc = 'Toggle Tagbar' } },
@@ -57,18 +55,25 @@ M.after_init = function ()
 
     { -- Keybindings for Telescope
       module = 'telescope.builtin',
-      { 'n', '<leader>?',       'oldfiles', { desc = '[?] Find recently opened files' } },
-      { 'n', '<leader><space>', 'buffers', { desc = '[ ] Find existing buffers' } },
-      { 'n', '<leader>sf',      'find_files', { desc = '[s]earch [f]iles' } },
-      { 'n', '<leader>sb',      'current_buffer_fuzzy_find', { desc = '[s]earch current [b]uffer' } },
-      { 'n', '<leader>sh',      'help_tags', { desc = '[s]earch [h]elp' }  },
-      { 'n', '<leader>sw',      'grep_string', { desc = '[s]earch current [w]ord' } },
-      { 'n', '<leader>sg',      'live_grep', { desc = '[s]earch by [g]rep' } },
-      { 'n', '<leader>sd',      'diagnostics', { desc = '[s]earch [d]iagnostics' } },
-      { 'n', '<leader>st',      'tags', { desc = '[s]earch all [t]ags' } },
-      { 'n', '<leader>so',      'tags', { desc = '[s]earch symb[o]ls in current buffer' },
-        args = { { only_current_buffer = true } },
-      },
+      nmap('<leader>?',       'oldfiles',                   '[?] Find recently opened files'),
+      nmap('<leader><space>', 'buffers',                    '[ ] Find existing buffers'),
+      nmap('<leader>sf',      'find_files',                 '[s]earch [f]iles'),
+      nmap('<leader>sb',      'current_buffer_fuzzy_find',  '[s]earch current [b]uffer'),
+      nmap('<leader>sh',      'help_tags',                  '[s]earch [h]elp'),
+      nmap('<leader>sw',      'grep_string',                '[s]earch current [w]ord'),
+      nmap('<leader>sg',      'live_grep',                  '[s]earch by [g]rep'),
+      nmap('<leader>sd',      'diagnostics',                '[s]earch [d]iagnostics'),
+      nmap('<leader>st',      'tags',                       '[s]earch all [t]ags'),
+      nmap('<leader>so',      'tags',                       '[s]earch symb[o]ls in current buffer',
+        { { only_current_buffer = true } }),
+
+      -- Telescope git things
+      nmap('<leader>Gsf', 'git_files',    '[G]it [s]earch [f]iles'),
+      nmap('<leader>Gst', 'git_stash',    '[G]it [s]earch s[t]ash'),
+      nmap('<leader>Gss', 'git_status',   '[G]it [s]earch [s]tatus'),
+      nmap('<leader>Gsc', 'git_bcommits', '[G]it [s]earch buffer [c]ommits'),
+      nmap('<leader>GsC', 'git_commits',  '[G]it [s]earch [C]ommits'),
+      nmap('<leader>Gsb', 'git_branches', '[G]it [s]earch [b]ranches'),
     },
 
     -- Keybindings for telescope extensions

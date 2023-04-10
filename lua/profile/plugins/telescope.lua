@@ -25,12 +25,14 @@ return {
 
     opts = function ()
       local fb_actions = require('telescope').extensions.file_browser.actions
+      -- local actions = require('telescope.actions')
       return {
         defaults = {
           mappings = {
             i = {
-              ['<C-u>'] = false,
-              ['<C-d>'] = false,
+              -- ['<C-u>'] = false,
+              -- ['<C-d>'] = false,
+              ['<M-h>'] = 'which_key',
             },
           },
         },
