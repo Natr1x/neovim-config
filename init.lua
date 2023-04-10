@@ -37,7 +37,6 @@ require('lazy').setup({
   -- Color themes
   'folke/tokyonight.nvim',
 
-  -- use 'OmniSharp/omnisharp-vim'
   'inkarkat/vim-ReplaceWithRegister',
   'preservim/tagbar',
 
@@ -53,26 +52,6 @@ require('lazy').setup({
       'junegunn/fzf', -- Sets up fzf on the system
       build = ":call fzf#install()"
     },
-  },
-
-  -- UI to select things (files, grep results, open buffers...)
-  {
-    'nvim-telescope/telescope.nvim',
-    version = '*',
-    dependencies = { 'nvim-lua/plenary.nvim' }
-  },
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'make',
-    cond = function()
-      return vim.fn.executable 'make' == 1
-    end,
-  },
-  {
-    "nvim-telescope/telescope-file-browser.nvim",
-    dependencies = {
-      'nvim-telescope/telescope.nvim',
-    }
   },
 
   -- Merges the modules as if the were written in this object
