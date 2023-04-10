@@ -73,7 +73,8 @@ local set_bindings = require('profile.keymaps').after_init
 -- require 'profile.plugins'
 
 -- Set up machine specific settings
-require 'profile.machine_local'
+-- TODO: Figure out some other way to do this
+-- require 'profile.machine_local'
 
 -- Set the keybindings from the profile
 set_bindings()
