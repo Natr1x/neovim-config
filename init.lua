@@ -75,13 +75,8 @@ require('lazy').setup({
     }
   },
 
+  -- Merges the modules as if the were written in this object
   { import = 'profile.plugins' },
-
-  -- Add indentation guides even on blank lines
-  'lukas-reineke/indent-blankline.nvim',
-
-  -- Custom helpers
-  'gbrlsnchs/winpick.nvim', -- Used in lua/profile/util/window_tools.lua
 
   -- if packer_bootstrap then
   --   require('packer').sync()

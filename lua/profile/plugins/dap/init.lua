@@ -4,20 +4,22 @@ return {
   dependencies = {
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
-    { 'jay-babu/mason-nvim-dap.nvim', opts = { automatic_setup = true, } },
+    {
+      'jay-babu/mason-nvim-dap.nvim',
+      opts = {
+        automatic_setup = true,
+        handlers = {
+          -- You can provide additional configuration to the handlers,
+          -- see mason-nvim-dap README for more information
+          function (config)
+            require('mason-nvim-dap').default_setup(config)
+            require 'profile.keymaps.dap'
+          end
+        }
+      }
+    },
 
     -- Add your own debuggers here
     -- 'leoluz/nvim-dap-go',
   },
-
-  config = function()
-    -- You can provide additional configuration to the handlers,
-    -- see mason-nvim-dap README for more information
-    require('mason-nvim-dap').setup_handlers()
-
-    require 'profile.keymaps.dap'
-
-    -- Install golang specific config
-    -- require('dap-go').setup()
-  end,
 }
