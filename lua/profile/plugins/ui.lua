@@ -86,7 +86,15 @@ return {
       local winpick = require 'winpick'
       return {
         border = "double",
-        filter = nil, -- Can be used to ignore certain windows
+        -- Can be used to ignore certain windows
+        filter = function (windowId, _)
+          if not vim.api.nvim_win_is_valid(windowId) then
+            return false
+          end
+
+          local config = vim.api.nvim_win_get_config(windowId)
+          return config.focusable
+        end,
         prompt = "Pick a window: ",
         format_label = winpick.defaults.format_label, -- formatted as "<label>: <buffer name>"
         chars = nil,
