@@ -88,10 +88,10 @@ local specific_attach = {
         nmap('<C-k><C-i>',      'hover_actions',  'Hover Documentation'),
 
       },
-      {
-        module = 'rust-tools.code_action_group',
-        nmap('<LocalLeader>ca', 'code_action_group',  '[c]ode [a]ction'),
-      }
+      -- {
+      --   module = 'rust-tools.code_action_group',
+      --   nmap('<LocalLeader>ca', 'code_action_group',  '[c]ode [a]ction'),
+      -- }
     }
   end
 }
