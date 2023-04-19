@@ -81,8 +81,10 @@ return {
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
-    config = function()
+    build = function ()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
+    end,
+    config = function()
       setup_treesitter()
     end,
   },
