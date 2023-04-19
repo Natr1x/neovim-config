@@ -19,6 +19,7 @@ local function default_attach(_, bufnr)
       nmap('gD',               'declaration',             '[g]oto [D]eclaration'),
       nmap('<LocalLeader>h',   'hover',                   '[h]over Documentation'),
       nmap('<C-k><C-i>',       'hover',                   'Hover Documentation'),
+      nmap('K',                'hover',                   'Hover Documentation'),
       nmap('<C-k><C-k>',       'signature_help',          'Signature Documentation'),
       nmap('<LocalLeader>rn',  'rename',                  '[r]e[n]ame'),
       nmap('<LocalLeader>ca',  'code_action',             '[c]ode [a]ction'),
@@ -76,7 +77,7 @@ local specific_attach = {
   cpp = c_and_cpp,
   ['rust_analyzer'] = function (client, bufnr)
     local function nmap(keys, func, desc)
-      return { 'n', keys, func, { buffer = bufnr, desc = desc } }
+      return { 'n', keys, func, { buffer = bufnr, desc = 'Rust Tools: ' .. desc } }
     end
     default_attach(client, bufnr)
 
@@ -86,6 +87,7 @@ local specific_attach = {
 
         nmap('<LocalLeader>h',  'hover_actions',  '[h]over Documentation'),
         nmap('<C-k><C-i>',      'hover_actions',  'Hover Documentation'),
+        nmap('K',               'hover',          'Hover Documentation'),
 
       },
       -- {
