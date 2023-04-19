@@ -22,44 +22,49 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  'tpope/vim-surround', -- Surround commands
-  'tpope/vim-sleuth',   -- Detect tabstop and shiftwidth
-
-  { 'folke/which-key.nvim', opts = {}, },
-
-  { 'numToStr/Comment.nvim', opts = {} }, -- "gc" to comment visual regions/lines
-
-  'ludovicchabant/vim-gutentags', -- Automatic tags management
-  'ap/vim-css-color',
-  'mg979/vim-visual-multi', -- Multiple cursors
-  'michaeljsmith/vim-indent-object',
-
-  -- Color themes
-  'folke/tokyonight.nvim',
-
-  'inkarkat/vim-ReplaceWithRegister',
-  'preservim/tagbar',
-
-  { -- Replaces Easymotion
-    'phaazon/hop.nvim',
-    opts = {},
-    branch = 'v1', -- optional but strongly recommended
+  dev = {
+    path = "~/labb/nvim-plugins",
   },
+  spec = {
+    'tpope/vim-surround', -- Surround commands
+    'tpope/vim-sleuth',   -- Detect tabstop and shiftwidth
 
-  { -- Adds a number of commands using fzf
-    'junegunn/fzf.vim',
-    dependencies = {
-      'junegunn/fzf', -- Sets up fzf on the system
-      build = ":call fzf#install()"
+    { 'folke/which-key.nvim', opts = {}, },
+
+    { 'numToStr/Comment.nvim', opts = {} }, -- "gc" to comment visual regions/lines
+
+    'ludovicchabant/vim-gutentags', -- Automatic tags management
+    'ap/vim-css-color',
+    'mg979/vim-visual-multi', -- Multiple cursors
+    'michaeljsmith/vim-indent-object',
+
+    -- Color themes
+    'folke/tokyonight.nvim',
+
+    'inkarkat/vim-ReplaceWithRegister',
+    'preservim/tagbar',
+
+    { -- Replaces Easymotion
+      'phaazon/hop.nvim',
+      opts = {},
+      branch = 'v1', -- optional but strongly recommended
     },
-  },
 
-  -- Merges the modules as if the were written in this object
-  { import = 'profile.plugins' },
+    { -- Adds a number of commands using fzf
+      'junegunn/fzf.vim',
+      dependencies = {
+        'junegunn/fzf', -- Sets up fzf on the system
+        build = ":call fzf#install()"
+      },
+    },
 
-  -- if packer_bootstrap then
-  --   require('packer').sync()
-  -- end
+    -- Merges the modules as if the were written in this object
+    { import = 'profile.plugins' },
+
+    -- if packer_bootstrap then
+    --   require('packer').sync()
+    -- end
+  }
 })
 
 -- Load options profile first
