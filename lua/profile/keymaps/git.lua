@@ -1,5 +1,5 @@
 --- Git related keybindings
-local bind = require('profile.util.keybinder')
+local bind = require('profile.util.keybinder').bind
 
 local M = {}
 
@@ -41,6 +41,22 @@ M.gitsigns_attach = function (bufnr)
   local function nmap(keys, func, desc)
     return { 'n', keys, func, { buffer = bufnr, desc = desc } }
   end
+  local function vmap(keys, func, desc)
+    local function range_args()
+      local start = vim.api.nvim_buf_get_mark(0, "<")
+      local ending = vim.api.nvim_buf_get_mark(0, ">")
+      return {
+        {
+          start[1],
+          ending[1],
+        },
+      }
+    end
+    return {
+      'v', keys, func, { buffer = bufnr, desc = desc },
+      args = range_args
+    }
+  end
 
   wk.register({
     ['<LocalLeader>gh'] = { name = '+hunk' },
@@ -55,6 +71,7 @@ M.gitsigns_attach = function (bufnr)
     nmap('<LocalLeader>ghp', 'prev_hunk', '[g]it [h]unk [p]revious'),
     nmap('<LocalLeader>ghn', 'next_hunk', '[g]it [h]unk [n]ext'),
     nmap('<LocalLeader>ghs', 'stage_hunk', '[g]it [h]unk [s]tage'),
+    vmap('<LocalLeader>ghs', 'stage_hunk', '[g]it [h]unk [s]tage'),
     nmap('<LocalLeader>ghr', 'reset_hunk', '[g]it [h]unk [r]eset'),
 
     nmap('<LocalLeader>gbs', 'stage_buffer', '[g]it [b]uffer [s]tage'),

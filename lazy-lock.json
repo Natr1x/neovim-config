@@ -13,6 +13,7 @@
   "lsp-overloads.nvim": { "branch": "main", "commit": "939bf42421a31dfe021a47720763602d54e1b165" },
   "lualine.nvim": { "branch": "master", "commit": "84ffb80e452d95e2c46fa29a98ea11a240f7843e" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "7034065099c1665143091c7282b3b1b8f0b23783" },
+  "mason-nvim-dap.nvim": { "branch": "main", "commit": "b874576d00be1dd25e5e9b375d9cd31718808583" },
   "mason.nvim": { "branch": "main", "commit": "7f364a3c9b3f77ead3dc5316cf6918d944fc3621" },
   "neodev.nvim": { "branch": "main", "commit": "e812f3d0e62e21a164b70f90f642cf30129503e4" },
   "neovim-cmake": { "branch": "master", "commit": "0f09be32968c74874fa8ceff475d47b2f5863092" },

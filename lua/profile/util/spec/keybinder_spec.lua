@@ -3,7 +3,7 @@ local match = require('luassert.match')
 -- local stub = require('luassert.stub')
 
 describe("bind", function ()
-  local bind = require('profile.util.keybinder')
+  local bind = require('profile.util.keybinder').bind
   local snapshot, keymap
 
   before_each(function ()

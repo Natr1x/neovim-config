@@ -1,4 +1,4 @@
-local bind = require('profile.util.keybinder')
+local bind = require('profile.util.keybinder').bind
 local wk = require 'which-key'
 
 local function nmap(keys, func, desc)

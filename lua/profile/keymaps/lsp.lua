@@ -1,4 +1,4 @@
-local bind = require('profile.util.keybinder')
+local bind = require('profile.util.keybinder').bind
 
 local function default_attach(_, bufnr)
   local wk = require 'which-key'

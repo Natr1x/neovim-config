@@ -1,4 +1,5 @@
-local bind = require('profile.util.keybinder')
+local k = require('profile.util.keybinder')
+local bind = k.bind
 local wk = require 'which-key'
 
 wk.register({
@@ -26,6 +27,14 @@ M.after_init = function ()
 
     return { 'n', keys, func, { desc = desc } }
   end
+
+  -- local testop = k.as_opfunc(function (mtype, start, finish)
+  --   print(vim.inspect({'inner call', mtype = mtype, start = start, finish = finish}))
+  -- end)
+  --
+  -- bind {{
+  --   { 'n', '<f12>', testop, { desc = "Test operator binding", expr = true } },
+  -- }}
 
   bind {
     {
