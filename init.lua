@@ -58,6 +58,8 @@ require('lazy').setup({
       },
     },
 
+    'axvr/zepl.vim',
+
     -- Merges the modules as if the were written in this object
     { import = 'profile.plugins' },
 
