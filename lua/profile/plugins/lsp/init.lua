@@ -17,6 +17,12 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+
+  julials = {
+    julia = {
+      lint = { call = false }
+    }
+  }
 }
 
 --- Generates a default setup table to pass to servers setup function
