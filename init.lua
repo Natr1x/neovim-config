@@ -3,7 +3,7 @@
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
-vim.g.maplocalleader = ','
+vim.g.maplocalleader = '-'
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -26,8 +26,10 @@ require('lazy').setup({
     path = "~/labb/nvim-plugins",
   },
   spec = {
+    'tpope/vim-repeat', -- Better functionality with . repeat
     'tpope/vim-surround', -- Surround commands
     'tpope/vim-sleuth',   -- Detect tabstop and shiftwidth
+    'tpope/vim-abolish', -- Word handling (i e convert from camel- to snakecase)
 
     { 'folke/which-key.nvim', opts = {}, },
 
