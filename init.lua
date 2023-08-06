@@ -22,10 +22,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  dev = {
-    path = "~/labb/nvim-plugins",
-  },
-  spec = {
     'tpope/vim-repeat', -- Better functionality with . repeat
     'tpope/vim-surround', -- Surround commands
     'tpope/vim-sleuth',   -- Detect tabstop and shiftwidth
@@ -35,7 +31,7 @@ require('lazy').setup({
 
     { 'numToStr/Comment.nvim', opts = {} }, -- "gc" to comment visual regions/lines
 
-    'ludovicchabant/vim-gutentags', -- Automatic tags management
+    -- 'ludovicchabant/vim-gutentags', -- Automatic tags management
     'ap/vim-css-color',
     'mg979/vim-visual-multi', -- Multiple cursors
     'michaeljsmith/vim-indent-object',
@@ -65,11 +61,11 @@ require('lazy').setup({
     -- Merges the modules as if the were written in this object
     { import = 'profile.plugins' },
 
-    -- if packer_bootstrap then
-    --   require('packer').sync()
-    -- end
-  }
-})
+  },{
+    dev = {
+      path = "~/labb/nvim-plugins",
+    },
+  })
 
 -- Load options profile first
 require 'profile.options'

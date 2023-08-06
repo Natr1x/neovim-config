@@ -6,7 +6,6 @@ return {
     'williamboman/mason.nvim',
     {
       'jay-babu/mason-nvim-dap.nvim',
-      dev = true,
       opts = {
         automatic_setup = true,
         handlers = {
