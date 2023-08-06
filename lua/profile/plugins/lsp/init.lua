@@ -96,7 +96,7 @@ return {
       -- Useful status updates for LSP
       {
         'j-hui/fidget.nvim',
-        tag = "legaxy",
+        tag = "legacy",
         event = "LspAttach",
         opts = {}
       },
