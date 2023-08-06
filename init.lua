@@ -31,7 +31,7 @@ require('lazy').setup({
 
     { 'numToStr/Comment.nvim', opts = {} }, -- "gc" to comment visual regions/lines
 
-    -- 'ludovicchabant/vim-gutentags', -- Automatic tags management
+    'ludovicchabant/vim-gutentags', -- Automatic tags management
     'ap/vim-css-color',
     'mg979/vim-visual-multi', -- Multiple cursors
     'michaeljsmith/vim-indent-object',
