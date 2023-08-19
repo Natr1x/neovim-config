@@ -16,6 +16,7 @@
   "mason-nvim-dap.nvim": { "branch": "main", "commit": "6148b51db945b55b3b725da39eaea6441e59dff8" },
   "mason.nvim": { "branch": "main", "commit": "b5bb138312dbd3f7729197ca659cbe5221d36a03" },
   "neodev.nvim": { "branch": "main", "commit": "47dacc6d8f74936f7719351b025421df740c789b" },
+  "neomake": { "branch": "master", "commit": "584f882b9f991245374e7e7d7d1f78bae90b7a35" },
   "neovim-cmake": { "branch": "master", "commit": "0f09be32968c74874fa8ceff475d47b2f5863092" },
   "nvim-cmp": { "branch": "main", "commit": "51f1e11a89ec701221877532ee1a23557d291dd5" },
   "nvim-dap": { "branch": "master", "commit": "1c63f37f95cd4fb54512898168138d9a75d1516a" },
