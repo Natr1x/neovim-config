@@ -75,6 +75,7 @@ end
 local specific_attach = {
   c = c_and_cpp,
   cpp = c_and_cpp,
+  clangd = c_and_cpp,
   ['rust_analyzer'] = function (client, bufnr)
     local function nmap(keys, func, desc)
       return { 'n', keys, func, { buffer = bufnr, desc = 'Rust Tools: ' .. desc } }
