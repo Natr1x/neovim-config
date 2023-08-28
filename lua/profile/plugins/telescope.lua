@@ -8,9 +8,9 @@ return {
       "nvim-telescope/telescope-file-browser.nvim",
       {
         'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'make',
+        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
         cond = function()
-          return vim.fn.executable 'make' == 1
+          return vim.fn.executable 'cmake' == 1
         end,
       },
     },
