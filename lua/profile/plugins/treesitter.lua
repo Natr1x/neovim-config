@@ -18,6 +18,12 @@ local function setup_treesitter()
     sync_install = false,
     ignore_install = {},
 
+    query_linter = {
+      enable = true,
+      use_virtual_text = true,
+      lint_events = {"BufWrite", "CursorHold"},
+    },
+
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
 
