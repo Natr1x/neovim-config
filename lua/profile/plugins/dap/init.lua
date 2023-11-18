@@ -1,6 +1,19 @@
 return {
   'mfussenegger/nvim-dap',
 
+  config = function (_, _)
+    local dap = require('dap')
+    dap.adapters.probe_rs = {
+      type = 'server',
+      port = '${port}',
+      id = 'probe-rs-debug',
+      executable = {
+        command = '~/.cargo/bin/probe-rs',
+        args = { 'dap-server', '--port', '${port}' }
+      }
+    }
+  end,
+
   dependencies = {
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
