@@ -4,6 +4,7 @@ local wk = require 'which-key'
 
 wk.register({
   ['<leader>s'] = { name = '+search' },
+  ['<leader>d'] = { name = '+directory' },
 })
 
 local M = {}
@@ -57,6 +58,11 @@ M.after_init = function ()
 
       -- Escape from terminal emulator
       { 't', '<C-o><C-o>', '<C-\\><C-N>', { desc = 'Enter normal mode from terminal' } },
+
+      -- Handling the working directory
+      nmap('<leader>dt', ':tcd %:h<cr>',  'Set [d]irectory with [t]cd %:h'),
+      nmap('<leader>dc', ':cd %:h<cr>',   'Set [d]irectory with [c]d %:h'),
+      nmap('<leader>dl', ':lcd %:h<cr>',  'Set [d]irectory with [l]cd %:h'),
     },
 
     { -- Keybindings for Telescope
