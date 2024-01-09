@@ -119,7 +119,13 @@ return {
     'hrsh7th/nvim-cmp',
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
-      { 'L3MON4D3/LuaSnip', opts = {} },
+      {
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        -- build = "nmake install_jsregexp"  -- Disable this for now.
+      },
       'saadparwaiz1/cmp_luasnip'
     },
 
