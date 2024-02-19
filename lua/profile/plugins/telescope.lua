@@ -6,10 +6,19 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       "nvim-telescope/telescope-file-browser.nvim",
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+        cond = function()
+          return vim.fn.executable 'cmake' == 1
+        end,
+      },
     },
 
     config = function (_, opts)
       require('telescope').setup(opts)
+      -- Enable telescope fzf native
+      require('telescope').load_extension 'fzf'
       -- Telescope file browser
       require('telescope').load_extension 'file_browser'
     end,
