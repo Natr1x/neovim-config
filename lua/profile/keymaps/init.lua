@@ -4,6 +4,11 @@ local wk = require 'which-key'
 
 wk.register({
   ['<leader>s'] = { name = '+search' },
+  ['<leader>d'] = { name = '+directory' },
+  ['<leader>c'] = { name = '+change' },
+  ['<leader>sn'] = { name = '+notes' },
+  ['<leader>o'] = { name = '+obsidian' },
+  ['<leader>ol'] = { name = '+link' },
 })
 
 local M = {}
@@ -57,6 +62,29 @@ M.after_init = function ()
 
       -- Escape from terminal emulator
       { 't', '<C-o><C-o>', '<C-\\><C-N>', { desc = 'Enter normal mode from terminal' } },
+
+      -- Handling the working directory
+      nmap('<leader>dt', ':tcd %:h<cr>',  'Set [d]irectory with [t]cd %:h'),
+      nmap('<leader>dc', ':cd %:h<cr>',   'Set [d]irectory with [c]d %:h'),
+      nmap('<leader>dl', ':lcd %:h<cr>',  'Set [d]irectory with [l]cd %:h'),
+
+      -- Obsidian Plugin
+      nmap('<leader>os', ':ObsidianSearch<cr>',  '[o]bsidian [s]earch'),
+      nmap('<leader>oq', ':ObsidianQuickSwitch<cr>',  '[o]bsidian [q]uick switch'),
+      nmap('<leader>on', ':ObsidianNew ',  '[o]bsidian [n]ew note'),
+      nmap('<leader>ot', ':ObsidianTemplate ',  '[o]bsidian [t]emplate'),
+      nmap('<leader>ob', ':ObsidianBacklinks<cr>',  '[o]bsidian [b]acklinks'),
+      nmap('<leader>od', ':ObsidianToday<cr>',  '[o]bsidian to[d]ay'),
+      nmap('<leader>ot', ':ObsidianTomorrow<cr>',  '[o]bsidian [t]omorrow'),
+      nmap('<leader>oy', ':ObsidianYesterday<cr>',  '[o]bsidian [y]esterday'),
+      nmap('<leader>oo', ':ObsidianOpen<cr>',  '[o]bsidian [o]pen'),
+      nmap('<leader>oln', ':ObsidianLinkNew<cr>',  '[o]bsidian [l]ink [n]ew'),
+      nmap('<leader>oll', ':ObsidianLink<cr>',  '[o]bsidian [l]ink'),
+
+      -- Telescope searches
+      nmap('<leader>sns', ':ObsidianSearch<cr>',  '[s]earch [n]otes [s]earch'),
+      nmap('<leader>snq', ':ObsidianQuickSwitch<cr>',  '[s]earch [n]otes [q]uick switch'),
+
     },
 
     { -- Keybindings for Telescope
