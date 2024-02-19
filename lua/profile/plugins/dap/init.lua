@@ -12,6 +12,12 @@ return {
         args = { 'dap-server', '--port', '${port}' }
       }
     }
+
+    dap.adapters["arm-none-eabi-gdb"] = {
+      type = 'executable',
+      command = 'arm-none-eabi-gdb',
+      args = {}
+    }
   end,
 
   dependencies = {
