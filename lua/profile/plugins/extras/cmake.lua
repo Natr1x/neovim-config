@@ -30,13 +30,8 @@ local function cmake_opts()
     -- By default tells cmake to generate `compile_commands.json`.
     -- configure_args = { '-D', 'CMAKE_EXPORT_COMPILE_COMMANDS=1' },
 
-    -- Default arguments that will be always passed at cmake configure step.
-    -- By default tells cmake to generate `compile_commands.json`.
-    configure_args = {
-      '-G', 'Ninja',
-      '-DCMAKE_EXPORT_COMPILE_COMMANDS=1',
-      '-DCMAKE_TOOLCHAIN_FILE=/src/vcpkg/scripts/buildsystems/vcpkg.cmake'
-    },
+    -- Default arguments that will be always passed at cmake build step.
+    -- build_args = {},
 
     -- Callback that will be called each time data is received by the current process.
     -- Accepts the received data as an argument.
