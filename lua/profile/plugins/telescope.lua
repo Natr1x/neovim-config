@@ -46,7 +46,8 @@ return {
                   opts = { nowait = true }
                 }
               }
-            }
+            },
+            cwd_to_path = true,
           },
         },
       }
