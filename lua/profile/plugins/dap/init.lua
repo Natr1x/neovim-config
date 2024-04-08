@@ -16,8 +16,22 @@ return {
     dap.adapters["arm-none-eabi-gdb"] = {
       type = 'executable',
       command = 'arm-none-eabi-gdb',
-      args = {}
+      args = { '-i', 'dap' }
     }
+
+    dap.configurations.c = {
+      {
+        name = "Attach to Server",
+        type = "arm-none-eabi-gdb",
+        request = "launch",
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = "${workspaceFolder}",
+        stopAtBeginningOfMainSubprogram = false,
+      },
+    }
+
   end,
 
   dependencies = {
