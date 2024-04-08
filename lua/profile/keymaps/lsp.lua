@@ -87,8 +87,8 @@ local specific_attach = {
         module = 'rust-tools.hover_actions',
 
         nmap('<LocalLeader>h',  'hover_actions',  '[h]over Documentation'),
-        nmap('<C-k><C-i>',      'hover_actions',  'Hover Documentation'),
-        nmap('K',               'hover',          'Hover Documentation'),
+        nmap('K',               'hover_actions',  'Hover Documentation'),
+        nmap('<C-k><C-i>',      'hover',          'Hover Documentation'),
 
       },
       -- {
