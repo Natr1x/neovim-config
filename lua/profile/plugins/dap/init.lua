@@ -34,6 +34,12 @@ return {
           args = { '-i', 'dap' }
         }
 
+        dap.adapters["avr-gdb"] = {
+          type = 'executable',
+          command = 'avr-gdb',
+          args = { '-i', 'dap', '-ex', "target remote :1234" }
+        }
+
         dap.configurations.c = {
           {
             name = "Attach to Server",
@@ -54,6 +60,16 @@ return {
             end,
             cwd = '${workspaceFolder}',
             stopAtEntry = true,
+          },
+          {
+            name = "avr-gdb attach to Server",
+            type = "avr-gdb",
+            request = "launch",
+            program = function()
+              return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+            end,
+            cwd = "${workspaceFolder}",
+            stopAtBeginningOfMainSubprogram = true,
           },
         }
       end,

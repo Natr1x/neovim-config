@@ -105,7 +105,11 @@ return {
   },
 
   -- Rust tools
-  'simrat39/rust-tools.nvim',
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^4', -- Recommended
+    lazy = false, -- This plugin is already lazy
+  },
 
   -- Better function overload handling
   'Issafalcon/lsp-overloads.nvim',
