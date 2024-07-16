@@ -6,11 +6,11 @@ local function default_attach(_, bufnr)
     return { 'n', keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc } }
   end
 
-  wk.register({
-    ['<LocalLeader>w'] = { name = '+workspace' },
-    ['<LocalLeader>c'] = { name = '+code' },
-    ['<LocalLeader>r'] = { name = '+refactor' },
-    ['<LocalLeader>s'] = { name = '+lspsearch' },
+  wk.add({
+    { '<LocalLeader>w', group = 'workspace' },
+    { '<LocalLeader>c', group = 'code' },
+    { '<LocalLeader>r', group = 'refactor' },
+    { '<LocalLeader>s', group = 'lspsearch' },
   })
 
   bind {

@@ -2,13 +2,13 @@ local k = require('profile.util.keybinder')
 local bind = k.bind
 local wk = require 'which-key'
 
-wk.register({
-  ['<leader>s'] = { name = '+search' },
-  ['<leader>d'] = { name = '+directory' },
-  ['<leader>c'] = { name = '+change' },
-  ['<leader>sn'] = { name = '+notes' },
-  ['<leader>o'] = { name = '+obsidian' },
-  ['<leader>ol'] = { name = '+link' },
+wk.add({
+  { "<leader>c", group = "change" },
+  { "<leader>d", group = "directory" },
+  { "<leader>o", group = "obsidian" },
+  { "<leader>ol", group = "link" },
+  { "<leader>s", group = "search" },
+  { "<leader>sn", group = "notes" },
 })
 
 local M = {}
