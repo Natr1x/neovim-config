@@ -3,7 +3,7 @@
 local servers = {
   clangd = {
     arguments = {
-      '--query-driver="/usr/bin/gcc,/usr/bin/g++,/usr/bin/arm-none-eabi-gcc,/usr/bin/arm-none-eabi-g*,/opt/st/stm32cubeide_1.13.2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.1.202309131626/tools/bin/arm-none-eabi-gcc,/usr/bin/arm-none-eabi-g*,/opt/st/stm32cubeide_1.13.2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.1.202309131626/tools/bin/arm-none-eabi-g++"',
+      '--query-driver="/usr/bin/gcc,/usr/bin/g++,/usr/bin/arm-none-eabi-gcc,/usr/bin/arm-none-eabi-g*,/opt/st/stm32cubeide_1.13.2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.1.202309131626/tools/bin/arm-none-eabi-gcc,/usr/bin/arm-none-eabi-g*,/opt/st/stm32cubeide_1.13.2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.1.202309131626/tools/bin/arm-none-eabi-g++,/usr/bin/avr-gcc"',
     },
   },
   omnisharp = {},
@@ -62,20 +62,49 @@ local function mason_lspconfig_setup(_, opts)
       }
     end,
 
-    ['rust_analyzer'] = function ()
-      local lsp_bindings = require 'profile.keymaps.lsp'
-      local set_lsp_keybindings = lsp_bindings.get_on_attach_fn('rust_analyzer')
-      require("rust-tools").setup {
-        server = {
-          on_attach = set_lsp_keybindings,
-        },
-        dap = {
-          adapter = require('mason-nvim-dap.mappings.adapters').codelldb
-        }
-      }
-    end
+    -- ['rust_analyzer'] = function ()
+    --   local lsp_bindings = require 'profile.keymaps.lsp'
+    --   local set_lsp_keybindings = lsp_bindings.get_on_attach_fn('rust_analyzer')
+    --   require("rust-tools").setup {
+    --     server = {
+    --       on_attach = set_lsp_keybindings,
+    --     },
+    --     dap = {
+    --       adapter = require('mason-nvim-dap.mappings.adapters').codelldb
+    --     }
+    --   }
+    -- end
+
   }
 end
+
+vim.g.rustaceanvim = function ()
+  local lsp_bindings = require 'profile.keymaps.lsp'
+  local set_lsp_keybindings = lsp_bindings.get_on_attach_fn('rust_analyzer')
+  return {
+    -- Plugin configuration
+    -- tools = {
+    -- },
+    -- LSP configuration
+    server = {
+      on_attach = set_lsp_keybindings,
+      default_settings = {
+        -- rust-analyzer language server configuration
+        ['rust-analyzer'] = {
+          completion = {
+            postfix = {
+              enable = false,
+            },
+          },
+        },
+      },
+    },
+    -- DAP configuration
+    -- dap = {
+    -- },
+  }
+end
+
 
 return {
   { -- LSP Configuration & Plugins
@@ -105,7 +134,11 @@ return {
   },
 
   -- Rust tools
-  'simrat39/rust-tools.nvim',
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^4', -- Recommended
+    lazy = false, -- This plugin is already lazy
+  },
 
   -- Better function overload handling
   'Issafalcon/lsp-overloads.nvim',
