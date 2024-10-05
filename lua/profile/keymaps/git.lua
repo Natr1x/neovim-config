@@ -10,10 +10,10 @@ M.after_init = function ()
     return { 'n', keys, func, { desc = desc } }
   end
 
-  wk.register({
-    ['<LocalLeader>g'] = { name = '+git' },
-    ['<leader>sg'] = { name = '+gitsearch' },
-    ['<LocalLeader>gs'] = { name = '+gitsearch' },
+  wk.add({
+    { "<LocalLeader>g", group = "git" },
+    { "<LocalLeader>gs", group = "gitsearch" },
+    { "<leader>sg", group = "gitsearch" },
   })
 
   bind({
@@ -58,9 +58,9 @@ M.gitsigns_attach = function (bufnr)
     }
   end
 
-  wk.register({
-    ['<LocalLeader>gh'] = { name = '+hunk' },
-    ['<LocalLeader>gb'] = { name = '+buffer' },
+  wk.add({
+    { '<LocalLeader>gh', group = 'hunk' },
+    { '<LocalLeader>gb', group = 'buffer' },
   })
 
   bind {{

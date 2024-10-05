@@ -5,10 +5,10 @@ local function nmap(keys, func, desc)
   return { 'n', keys, func, { desc = 'DAP: ' .. desc } }
 end
 
-wk.register({
-  ['<LocalLeader>d'] = { name = '+debug' },
-  ['<LocalLeader>ds'] = { name = '+step' },
-  ['<LocalLeader>du'] = { name = '+debugui' },
+wk.add({
+  { "<LocalLeader>d", group = "debug" },
+  { "<LocalLeader>ds", group = "step" },
+  { "<LocalLeader>du", group = "debugui" },
 })
 
 bind {{
