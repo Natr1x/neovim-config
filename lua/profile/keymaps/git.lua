@@ -13,18 +13,18 @@ M.after_init = function ()
   wk.add({
     { "<LocalLeader>g", group = "git" },
     { "<LocalLeader>gs", group = "gitsearch" },
-    { "<leader>sg", group = "gitsearch" },
+    { "<leader>sG", group = "gitsearch" },
   })
 
   bind({
     { -- Telescope git things
       module = 'telescope.builtin',
-      nmap('<leader>sgf', 'git_files',    '[s]earch [g]it [f]iles'),
-      nmap('<leader>sgt', 'git_stash',    '[s]earch [g]it s[t]ash'),
-      nmap('<leader>sgs', 'git_status',   '[s]earch [g]it [s]tatus'),
-      nmap('<leader>sgc', 'git_bcommits', '[s]earch [g]it buffer [c]ommits'),
-      nmap('<leader>sgC', 'git_commits',  '[s]earch [g]it [C]ommits'),
-      nmap('<leader>sgb', 'git_branches', '[s]earch [g]it [b]ranches'),
+      nmap('<leader>sGf', 'git_files',    '[s]earch [G]it [f]iles'),
+      nmap('<leader>sGt', 'git_stash',    '[s]earch [G]it s[t]ash'),
+      nmap('<leader>sGs', 'git_status',   '[s]earch [G]it [s]tatus'),
+      nmap('<leader>sGc', 'git_bcommits', '[s]earch [G]it buffer [c]ommits'),
+      nmap('<leader>sGC', 'git_commits',  '[s]earch [G]it [C]ommits'),
+      nmap('<leader>sGb', 'git_branches', '[s]earch [G]it [b]ranches'),
 
       nmap('<LocalLeader>gsf', 'git_files',    '[g]it [s]earch [f]iles'),
       nmap('<LocalLeader>gst', 'git_stash',    '[g]it [s]earch s[t]ash'),
