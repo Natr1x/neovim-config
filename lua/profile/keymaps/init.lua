@@ -92,6 +92,7 @@ M.after_init = function ()
       nmap('<leader>?',       'oldfiles',                   '[?] Find recently opened files'),
       nmap('<leader><space>', 'buffers',                    '[ ] Find existing buffers'),
       nmap('<leader>sf',      'find_files',                 '[s]earch [f]iles'),
+      nmap('<leader>sg',      'git_files',                  '[s]earch [g]it files'),
       nmap('<leader>sb',      'current_buffer_fuzzy_find',  '[s]earch current [b]uffer'),
       nmap('<leader>sh',      'help_tags',                  '[s]earch [h]elp'),
       nmap('<leader>sw',      'grep_string',                '[s]earch current [w]ord'),
