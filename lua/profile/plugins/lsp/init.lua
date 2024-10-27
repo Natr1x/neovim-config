@@ -19,11 +19,12 @@ local servers = {
     },
   },
 
-  julials = {
-    julia = {
-      lint = { call = false }
-    }
-  }
+  -- julials = {
+  --   julia = {
+  --     lint = { call = false }
+  --   }
+  -- }
+
 }
 
 --- Generates a default setup table to pass to servers setup function
