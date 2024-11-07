@@ -49,5 +49,6 @@
   "vim-visual-multi": { "branch": "master", "commit": "a6975e7c1ee157615bbc80fc25e4392f71c344d4" },
   "which-key.nvim": { "branch": "main", "commit": "68e37e12913a66b60073906f5d3f14dee0de19f2" },
   "winpick.nvim": { "branch": "trunk", "commit": "044623e236750a2f61a2cb96ce0833e113921b88" },
-  "zepl.vim": { "branch": "master", "commit": "e9e96b5307aa2e5e301d8d41220dcfd2712bc30e" }
+  "zepl.vim": { "branch": "master", "commit": "e9e96b5307aa2e5e301d8d41220dcfd2712bc30e" },
+  "zoxide.vim": { "branch": "master", "commit": "b1e70b6fc1682a83929aee63680d2b43456fe9a5" }
 }
