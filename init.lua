@@ -39,6 +39,9 @@ require('lazy').setup({
     -- Color themes
     'folke/tokyonight.nvim',
 
+    -- Simple zoxide commands (:Z, :Lz, :Tz, :Zi, :Lzi, :Tzi)
+    'nanotee/zoxide.vim',
+
     'inkarkat/vim-ReplaceWithRegister',
     'preservim/tagbar',
 
