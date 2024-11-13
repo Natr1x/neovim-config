@@ -18,6 +18,7 @@
   "neodev.nvim": { "branch": "main", "commit": "46aa467dca16cf3dfe27098042402066d2ae242d" },
   "neomake": { "branch": "master", "commit": "584f882b9f991245374e7e7d7d1f78bae90b7a35" },
   "neovim-cmake": { "branch": "master", "commit": "0f09be32968c74874fa8ceff475d47b2f5863092" },
+  "neovim-tasks": { "branch": "master", "commit": "99055e0a419c576646c0e9f0eb974c82add7c85d" },
   "nvim-cmp": { "branch": "main", "commit": "f17d9b4394027ff4442b298398dfcaab97e40c4f" },
   "nvim-dap": { "branch": "master", "commit": "8517126e9323e346f6a99b3b594c5a940b914dcd" },
   "nvim-dap-ui": { "branch": "master", "commit": "ffa89839f97bad360e78428d5c740fdad9a0ff02" },

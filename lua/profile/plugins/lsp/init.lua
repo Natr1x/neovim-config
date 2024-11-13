@@ -98,6 +98,12 @@ vim.g.rustaceanvim = function ()
             postfix = {
               enable = false,
             },
+            autoimport = {
+              enable = false,
+            },
+            callable = {
+              snippets = "none",
+            },
           },
         },
       },
