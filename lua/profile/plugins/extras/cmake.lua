@@ -104,5 +104,9 @@ return {
   {
     "Shatur/neovim-cmake", opts = cmake_opts,
     dependencies = { 'nvim-lua/plenary.nvim' }
-  }
+  },
+  {
+    "Shatur/neovim-tasks",
+    dependencies = { 'nvim-lua/plenary.nvim' }
+  },
 }
