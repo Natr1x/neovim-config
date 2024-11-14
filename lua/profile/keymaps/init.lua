@@ -5,10 +5,12 @@ local wk = require 'which-key'
 wk.add({
   { "<leader>c", group = "change" },
   { "<leader>d", group = "directory" },
+  { "<leader>di", group = "interactive" },
   { "<leader>o", group = "obsidian" },
   { "<leader>ol", group = "link" },
   { "<leader>s", group = "search" },
   { "<leader>sn", group = "notes" },
+  { "<leader>z", group = "zoxide" },
 })
 
 local M = {}
@@ -67,6 +69,15 @@ M.after_init = function ()
       nmap('<leader>dt', ':tcd %:h<cr>',  'Set [d]irectory with [t]cd %:h'),
       nmap('<leader>dc', ':cd %:h<cr>',   'Set [d]irectory with [c]d %:h'),
       nmap('<leader>dl', ':lcd %:h<cr>',  'Set [d]irectory with [l]cd %:h'),
+
+      -- Set working directory using a zoxide search
+      nmap('<leader>dit', ':Tzi<cr>',  'Zoxide [d]irectory [i]nteractively for [t]ab'),
+      nmap('<leader>dic', ':Zi<cr>',   'Zoxide [d]irectory [i]nteractively'),
+      nmap('<leader>dil', ':Lzi<cr>',  'Zoxide [d]irectory [i]nteractively for [l]ocation'),
+
+      nmap('<leader>zt', ':Tzi<cr>',  '[z]oxide [t]ab directory with fzf'),
+      nmap('<leader>zc', ':Zi<cr>',   '[z]oxide [c]urrent directory with fzf'),
+      nmap('<leader>zl', ':Lzi<cr>',  '[z]oxide [l]ocation/window directory with fzf'),
 
       -- Obsidian Plugin
       nmap('<leader>os', ':ObsidianSearch<cr>',  '[o]bsidian [s]earch'),
