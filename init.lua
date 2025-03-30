@@ -22,47 +22,58 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    'tpope/vim-repeat', -- Better functionality with . repeat
-    'tpope/vim-surround', -- Surround commands
-    'tpope/vim-sleuth',   -- Detect tabstop and shiftwidth
-    'tpope/vim-abolish', -- Word handling (i e convert from camel- to snakecase)
+  'tpope/vim-repeat', -- Better functionality with . repeat
+  'tpope/vim-surround', -- Surround commands
+  'tpope/vim-sleuth',   -- Detect tabstop and shiftwidth
+  'tpope/vim-abolish', -- Word handling (i e convert from camel- to snakecase)
 
-    { 'folke/which-key.nvim', opts = {}, },
+  { 'folke/which-key.nvim', opts = {}, },
 
-    { 'numToStr/Comment.nvim', opts = {} }, -- "gc" to comment visual regions/lines
+  { 'numToStr/Comment.nvim', opts = {} }, -- "gc" to comment visual regions/lines
 
-    'ludovicchabant/vim-gutentags', -- Automatic tags management
-    'ap/vim-css-color',
-    'mg979/vim-visual-multi', -- Multiple cursors
-    'michaeljsmith/vim-indent-object',
+  'ludovicchabant/vim-gutentags', -- Automatic tags management
+  'ap/vim-css-color',
+  'mg979/vim-visual-multi', -- Multiple cursors
+  'michaeljsmith/vim-indent-object',
 
-    -- Color themes
-    'folke/tokyonight.nvim',
+  -- Color themes
+  'folke/tokyonight.nvim',
 
-    -- Simple zoxide commands (:Z, :Lz, :Tz, :Zi, :Lzi, :Tzi)
-    'nanotee/zoxide.vim',
+  -- Simple zoxide commands (:Z, :Lz, :Tz, :Zi, :Lzi, :Tzi)
+  'nanotee/zoxide.vim',
 
+  {
     'inkarkat/vim-ReplaceWithRegister',
-    'preservim/tagbar',
+    init = function ()
+      -- New defaults actually use gr now for lsp stuff so rebind these
+      vim.cmd [[
+        nmap <Leader>r  <Plug>ReplaceWithRegisterOperator
+        nmap <Leader>rr <Plug>ReplaceWithRegisterLine
+        xmap <Leader>r  <Plug>ReplaceWithRegisterVisual
+      ]]
+    end,
+  },
 
-    { -- Replaces Easymotion
-      'phaazon/hop.nvim',
-      opts = {},
-      branch = 'v1', -- optional but strongly recommended
+  'preservim/tagbar',
+
+  { -- Replaces Easymotion
+    'phaazon/hop.nvim',
+    opts = {},
+    branch = 'v1', -- optional but strongly recommended
+  },
+
+  { -- Adds a number of commands using fzf
+    'junegunn/fzf.vim',
+    dependencies = {
+      'junegunn/fzf', -- Sets up fzf on the system
+      build = ":call fzf#install()"
     },
+  },
 
-    { -- Adds a number of commands using fzf
-      'junegunn/fzf.vim',
-      dependencies = {
-        'junegunn/fzf', -- Sets up fzf on the system
-        build = ":call fzf#install()"
-      },
-    },
+  'axvr/zepl.vim',
 
-    'axvr/zepl.vim',
-
-    -- Merges the modules as if the were written in this object
-    { import = 'profile.plugins' },
+  -- Merges the modules as if the were written in this object
+  { import = 'profile.plugins' },
 
   },{
     dev = {
