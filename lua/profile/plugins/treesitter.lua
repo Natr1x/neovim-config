@@ -86,24 +86,25 @@ local function setup_treesitter()
 end
 
 return {
-  { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    build = function ()
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
-    end,
-    config = function()
-      setup_treesitter()
-    end,
-  },
 
-  { -- Shows what method/scope the cursor is in
-    'nvim-treesitter/nvim-treesitter-context',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' }
-  },
+  -- { -- Highlight, edit, and navigate code
+  --   'nvim-treesitter/nvim-treesitter',
+  --   dependencies = {
+  --     'nvim-treesitter/nvim-treesitter-textobjects',
+  --   },
+  --   build = function ()
+  --     pcall(require('nvim-treesitter.install').update { with_sync = true })
+  --   end,
+  --   config = function()
+  --     setup_treesitter()
+  --   end,
+  -- },
+
+  -- { -- Shows what method/scope the cursor is in
+  --   'nvim-treesitter/nvim-treesitter-context',
+  --   dependencies = { 'nvim-treesitter/nvim-treesitter' }
+  -- },
 
   -- Used for debugging / developing treesitter stuff
-  'nvim-treesitter/playground',
+  -- 'nvim-treesitter/playground',
 }

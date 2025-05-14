@@ -51,37 +51,37 @@ return {
     }
   },
 
-  {
-    'rcarriga/nvim-dap-ui',
-    dependencies = { 'mfussenegger/nvim-dap', "nvim-neotest/nvim-nio" },
-    config = function (_, opts)
-      local dap = require 'dap'
-      local dapui = require 'dapui'
-
-      dapui.setup(opts)
-
-      local control_hl_groups = {
-          "DapUIPlayPause",
-          "DapUIRestart",
-          "DapUIStop",
-          "DapUIUnavailable",
-          "DapUIStepOver",
-          "DapUIStepInto",
-          "DapUIStepBack",
-          "DapUIStepOut",
-      }
-
-      for _, hl_group in ipairs(control_hl_groups) do
-        vim.cmd(string.format("hi %s guibg=#16161e", hl_group))
-        vim.cmd(string.format("hi %sNC guibg=#16161e", hl_group))
-      end
-
-      dap.listeners.after.event_initialized['dapui_config'] = dapui.open
-      dap.listeners.before.event_terminated['dapui_config'] = dapui.close
-      dap.listeners.before.event_exited['dapui_config'] = dapui.close
-
-    end
-  },
+  -- {
+  --   'rcarriga/nvim-dap-ui',
+  --   dependencies = { 'mfussenegger/nvim-dap', "nvim-neotest/nvim-nio" },
+  --   config = function (_, opts)
+  --     local dap = require 'dap'
+  --     local dapui = require 'dapui'
+  --
+  --     dapui.setup(opts)
+  --
+  --     local control_hl_groups = {
+  --         "DapUIPlayPause",
+  --         "DapUIRestart",
+  --         "DapUIStop",
+  --         "DapUIUnavailable",
+  --         "DapUIStepOver",
+  --         "DapUIStepInto",
+  --         "DapUIStepBack",
+  --         "DapUIStepOut",
+  --     }
+  --
+  --     for _, hl_group in ipairs(control_hl_groups) do
+  --       vim.cmd(string.format("hi %s guibg=#16161e", hl_group))
+  --       vim.cmd(string.format("hi %sNC guibg=#16161e", hl_group))
+  --     end
+  --
+  --     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
+  --     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
+  --     dap.listeners.before.event_exited['dapui_config'] = dapui.close
+  --
+  --   end
+  -- },
 
   { -- Custom helpers
     'gbrlsnchs/winpick.nvim', -- Used in lua/profile/util/window_tools.lua

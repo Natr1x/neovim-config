@@ -1,3 +1,5 @@
+local fzf_native = false
+
 return {
   -- UI to select things (files, grep results, open buffers...)
   {
@@ -10,7 +12,8 @@ return {
         'nvim-telescope/telescope-fzf-native.nvim',
         build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
         cond = function()
-          return vim.fn.executable 'cmake' == 1
+          fzf_native = vim.fn.executable 'cmake' == 1
+          return fzf_native
         end,
       },
     },
@@ -18,7 +21,10 @@ return {
     config = function (_, opts)
       require('telescope').setup(opts)
       -- Enable telescope fzf native
-      require('telescope').load_extension 'fzf'
+
+      if fzf_native then
+        require('telescope').load_extension 'fzf'
+      end
       -- Telescope file browser
       require('telescope').load_extension 'file_browser'
     end,

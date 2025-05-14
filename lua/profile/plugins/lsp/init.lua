@@ -1,23 +1,25 @@
 
 -- Servers here will be automatically installed and setup with these settings
 local servers = {
-  clangd = {
-    arguments = {
-      '--query-driver="/usr/bin/gcc,/usr/bin/g++,/usr/bin/arm-none-eabi-gcc,/usr/bin/arm-none-eabi-g*,/opt/st/stm32cubeide_1.13.2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.1.202309131626/tools/bin/arm-none-eabi-gcc,/usr/bin/arm-none-eabi-g*,/opt/st/stm32cubeide_1.13.2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.1.202309131626/tools/bin/arm-none-eabi-g++,/usr/bin/avr-gcc"',
-    },
-  },
+
+  -- clangd = {
+  --   arguments = {
+  --     '--query-driver="/usr/bin/gcc,/usr/bin/g++,/usr/bin/arm-none-eabi-gcc,/usr/bin/arm-none-eabi-g*,/opt/st/stm32cubeide_1.13.2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.1.202309131626/tools/bin/arm-none-eabi-gcc,/usr/bin/arm-none-eabi-g*,/opt/st/stm32cubeide_1.13.2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.1.202309131626/tools/bin/arm-none-eabi-g++,/usr/bin/avr-gcc"',
+  --   },
+  -- },
+
   -- omnisharp = {},
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
 
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
+  -- lua_ls = {
+  --   Lua = {
+  --     workspace = { checkThirdParty = false },
+  --     telemetry = { enable = false },
+  --   },
+  -- },
 
   -- julials = {
   --   julia = {
@@ -50,35 +52,35 @@ end
 local function mason_lspconfig_setup(_, opts)
   local mason_lspconfig = require 'mason-lspconfig'
   mason_lspconfig.setup(opts)
-  mason_lspconfig.setup_handlers {
-    function(server_name)
-      local setup = default_setup_handler(server_name)
-      require('lspconfig')[server_name].setup(setup)
-    end,
-
-    ['omnisharp'] = function ()
-      local setup = default_setup_handler('omnisharp')
-      setup.handles = {
-        ['textDocument/definition'] = require('omnisharp_extended').handler
-      }
-    end,
-
-    ['rust_analyzer'] = function ()
-
-      -- local lsp_bindings = require 'profile.keymaps.lsp'
-      -- local set_lsp_keybindings = lsp_bindings.get_on_attach_fn('rust_analyzer')
-      -- require("rust-tools").setup {
-      --   server = {
-      --     on_attach = set_lsp_keybindings,
-      --   },
-      --   dap = {
-      --     adapter = require('mason-nvim-dap.mappings.adapters').codelldb
-      --   }
-      -- }
-
-    end
-
-  }
+  -- mason_lspconfig.setup_handlers {
+  --   function(server_name)
+  --     local setup = default_setup_handler(server_name)
+  --     require('lspconfig')[server_name].setup(setup)
+  --   end,
+  --
+  --   ['omnisharp'] = function ()
+  --     local setup = default_setup_handler('omnisharp')
+  --     setup.handles = {
+  --       ['textDocument/definition'] = require('omnisharp_extended').handler
+  --     }
+  --   end,
+  --
+  --   ['rust_analyzer'] = function ()
+  --
+  --     -- local lsp_bindings = require 'profile.keymaps.lsp'
+  --     -- local set_lsp_keybindings = lsp_bindings.get_on_attach_fn('rust_analyzer')
+  --     -- require("rust-tools").setup {
+  --     --   server = {
+  --     --     on_attach = set_lsp_keybindings,
+  --     --   },
+  --     --   dap = {
+  --     --     adapter = require('mason-nvim-dap.mappings.adapters').codelldb
+  --     --   }
+  --     -- }
+  --
+  --   end
+  --
+  -- }
 end
 
 vim.g.rustaceanvim = function ()
@@ -116,31 +118,33 @@ end
 
 
 return {
-  { -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', opts = {} },
-      {
-        'williamboman/mason-lspconfig.nvim',
-        opts = { ensure_installed = vim.tbl_keys(servers), },
-        config = mason_lspconfig_setup,
 
-        dependencies = {
-          -- Additional lua configuration, makes nvim stuff amazing!
-          { 'folke/neodev.nvim', opts = {} },
-        },
-      },
-
-      -- Useful status updates for LSP
-      {
-        'j-hui/fidget.nvim',
-        tag = "legacy",
-        event = "LspAttach",
-        opts = {}
-      },
-    },
-  },
+  -- { -- LSP Configuration & Plugins
+  --   'neovim/nvim-lspconfig',
+  --   dependencies = {
+  --
+  --     -- Automatically install LSPs to stdpath for neovim
+  --     { 'williamboman/mason.nvim', opts = {} },
+  --
+  --     {
+  --       'williamboman/mason-lspconfig.nvim',
+  --       opts = { ensure_installed = vim.tbl_keys(servers), },
+  --       config = mason_lspconfig_setup,
+  --       dependencies = {
+  --         -- Additional lua configuration, makes nvim stuff amazing!
+  --         { 'folke/neodev.nvim', opts = {} },
+  --       },
+  --     },
+  --
+  --     -- Useful status updates for LSP
+  --     {
+  --       'j-hui/fidget.nvim',
+  --       tag = "legacy",
+  --       event = "LspAttach",
+  --       opts = {}
+  --     },
+  --   },
+  -- },
 
   -- Rust tools
   {
@@ -152,10 +156,10 @@ return {
   -- Better function overload handling
   'Issafalcon/lsp-overloads.nvim',
 
-  {
-    'Hoffs/omnisharp-extended-lsp.nvim',
-    ft = 'cs',
-  },
+  -- {
+  --   'Hoffs/omnisharp-extended-lsp.nvim',
+  --   ft = 'cs',
+  -- },
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -191,4 +195,5 @@ return {
       return opts
     end
   },
+
 }
