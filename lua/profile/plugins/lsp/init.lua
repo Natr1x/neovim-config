@@ -121,16 +121,16 @@ return {
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', opts = {} },
-      {
-        'williamboman/mason-lspconfig.nvim',
-        opts = { ensure_installed = vim.tbl_keys(servers), },
-        config = mason_lspconfig_setup,
-
-        dependencies = {
-          -- Additional lua configuration, makes nvim stuff amazing!
-          { 'folke/neodev.nvim', opts = {} },
-        },
-      },
+      -- {
+      --   'williamboman/mason-lspconfig.nvim',
+      --   opts = { ensure_installed = vim.tbl_keys(servers), },
+      --   config = mason_lspconfig_setup,
+      --
+      --   dependencies = {
+      --     -- Additional lua configuration, makes nvim stuff amazing!
+      --     { 'folke/neodev.nvim', opts = {} },
+      --   },
+      -- },
 
       -- Useful status updates for LSP
       {
