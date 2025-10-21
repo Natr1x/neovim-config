@@ -28,7 +28,7 @@ local function setup_treesitter()
     auto_install = false,
 
     highlight = { enable = true },
-    indent = { enable = true, disable = { 'python', 'rust' } },
+    indent = { enable = false, disable = { 'python', 'rust' } },
     incremental_selection = {
       enable = true,
       keymaps = {
