@@ -16,7 +16,7 @@ local function default_attach(_, bufnr)
   bind {
     {
       tbl = { vim.lsp.buf, 'vim.lsp.buf' },
-      nmap('gD',               'declaration',             '[g]oto [D]eclaration'),
+      nmap('grD',              'declaration',             '[g]oto [D]eclaration'),
       nmap('<LocalLeader>h',   'hover',                   '[h]over Documentation'),
       nmap('<C-k><C-i>',       'hover',                   'Hover Documentation'),
       nmap('K',                'hover',                   'Hover Documentation'),
@@ -27,8 +27,8 @@ local function default_attach(_, bufnr)
       nmap('<LocalLeader>wr',  'remove_workspace_folder', '[w]orkspace [r]emove folder'),
 
       -- Uncomment these if telescope is not working
-      -- nmap('gd',               'definition',              '[g]oto [d]efinition'),
-      -- nmap('gi',               'implementation',          '[g]oto [i]mplementation'),
+      -- nmap('grd',               'definition',              '[g]oto [d]efinition'),
+      -- nmap('gri',               'implementation',          '[g]oto [i]mplementation'),
       -- nmap('<LocalLeader>D',   'type_definition',         'Type [D]efinition'),
     },
     {
@@ -38,14 +38,14 @@ local function default_attach(_, bufnr)
     },
     {
       module = 'telescope.builtin',
-      nmap('gR',              'lsp_references',        'search [R]eferences'),
+      nmap('grR',             'lsp_references',        'search [R]eferences'),
       nmap('<LocalLeader>sr', 'lsp_references',        '[s]earch [r]eferences'),
-      nmap('gd',              'lsp_definitions',       '[g]oto [d]efinition'),
+      nmap('grd',             'lsp_definitions',       '[g]oto [d]efinition'),
       nmap('<LocalLeader>sd', 'lsp_definitions',       '[s]earch [d]efinitions'),
       nmap('<LocalLeader>sD', 'diagnostics',           '[s]earch [d]iagnostics'),
       nmap('<LocalLeader>sc', 'lsp_incoming_calls',    '[s]earch incoming [c]alls'),
       nmap('<LocalLeader>sC', 'lsp_outgoing_calls',    '[s]earch outgoing [C]alls'),
-      nmap('gi',              'lsp_implementations',   '[g]oto [i]mplementation'),
+      nmap('grI',             'lsp_implementations',   '[g]oto [I]mplementation'),
       nmap('<LocalLeader>si', 'lsp_implementations',   '[s]earch [i]mplementations'),
       nmap('<LocalLeader>so', 'lsp_document_symbols',  '[s]earch document symb[o]ls' ),
       nmap('<LocalLeader>D',  'lsp_type_definitions',  'search Type [D]efinitions'),
@@ -78,8 +78,20 @@ local specific_attach = {
   clangd = c_and_cpp,
   ['rust_analyzer'] = function (client, bufnr)
     default_attach(client, bufnr)
+    vim.keymap.set(
+      "n", "K", function() vim.cmd.RustLsp({'hover', 'actions'}) end,
+      { silent = true, buffer = bufnr, desc = 'rustacean: Hover Action' })
   end
 }
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(ev)
+    local buf = ev.buf
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    local on_attach = specific_attach[client.name] or default_attach
+    on_attach(client, buf)
+  end,
+})
 
 local M = {}
 
