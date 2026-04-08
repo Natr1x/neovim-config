@@ -26,6 +26,8 @@ require('lazy').setup({
   'tpope/vim-surround', -- Surround commands
   'tpope/vim-sleuth',   -- Detect tabstop and shiftwidth
   'tpope/vim-abolish', -- Word handling (i e convert from camel- to snakecase)
+  'tpope/vim-dadbod', -- Database interaction
+  'tpope/vim-dotenv', -- Helps plugins interact with environment variables
 
   { 'folke/which-key.nvim', opts = {}, },
 
