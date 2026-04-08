@@ -86,18 +86,16 @@
 -- end
 
 return {
-  -- { -- Highlight, edit, and navigate code
-  --   'nvim-treesitter/nvim-treesitter',
-  --   dependencies = {
-  --     'nvim-treesitter/nvim-treesitter-textobjects',
-  --   },
-  --   build = function ()
-  --     pcall(require('nvim-treesitter.install').update { with_sync = true })
-  --   end,
-  --   config = function()
-  --     setup_treesitter()
-  --   end,
-  -- },
+
+  { -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    build = ':TSUpdate',
+  },
+
+  {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+  }
   --
   -- { -- Shows what method/scope the cursor is in
   --   'nvim-treesitter/nvim-treesitter-context',

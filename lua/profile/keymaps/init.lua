@@ -43,6 +43,13 @@ M.after_init = function ()
   --   { 'n', '<f12>', testop, { desc = "Test operator binding", expr = true } },
   -- }}
 
+  local function select_ts_textobject(lhs, rhs, desc)
+    return {
+      {'x', 'o'}, lhs, 'select_textobject', { desc = desc },
+      args = { rhs, "textobjects" },
+    }
+  end
+
   bind {
     {
       -- Remap for dealing with word wrap
@@ -146,7 +153,24 @@ M.after_init = function ()
           desc = '[t]ranspose window (swap location and size then move to another window)'
         },
         args = { true } }
-    }
+    },
+
+    {
+      module = 'nvim-treesitter-textobjects.select',
+      select_ts_textobject('am', '@function.outer', 'Outer Function'),
+      select_ts_textobject('im', '@function.inner', 'Inner Function'),
+      select_ts_textobject('ac', '@class.outer', 'Outer Class'),
+      select_ts_textobject('ic', '@class.inner', 'Inner Class'),
+      select_ts_textobject('aa', '@parameter.outer', 'Outer Parameter'),
+      select_ts_textobject('ia', '@parameter.inner', 'Inner Parameter'),
+    },
+
+    {
+      module = 'nvim-treesitter-textobjects.swap',
+      { 'n', '<leader>a', 'swap_next', { desc = 'swap with next [a]rgument' }, args = {"@parameter.inner"} },
+      { 'n', '<leader>A', 'swap_previous', { desc = 'swap with previous [A]rgument' }, args = {"@parameter.inner"} },
+    },
+
   }
 
   git_keymaps.after_init()

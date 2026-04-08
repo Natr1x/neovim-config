@@ -7,6 +7,7 @@ local function mapkey(...)
 end
 
 local function args_string(args)
+  if not args then return '' end
   local res = vim.inspect(args)
   res = res:gsub('\n','')
   res = res:gsub('[ ]+',' ')
@@ -120,7 +121,7 @@ local function bind_table(tbl, tbl_desc, mappings)
     local mode, lhs, rhs, opts = unpack(m)
     opts = opts or {}
     opts.desc = opts.desc or mappings.desc or
-      tbl_desc .. '.' .. rhs .. ((m.args and args_string(m.args)) or '')
+      tbl_desc .. '.' .. rhs .. args_string(m.args)
     if m.args then
       local rhs_func = tbl[rhs]
       if type(m.args) == "function" then
