@@ -16,6 +16,9 @@ local servers = {
 
 vim.lsp.config['rust-analyzer'] = {
   completion = {
+    termSearch = {
+      enable = false,
+    },
     postfix = {
       enable = false,
     },
