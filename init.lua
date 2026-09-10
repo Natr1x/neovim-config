@@ -64,6 +64,15 @@ require('lazy').setup({
     branch = 'v1', -- optional but strongly recommended
   },
 
+  {
+    'junegunn/vim-easy-align',
+    init = function ()
+      vim.cmd [[
+        xmap ga <Plug>(EasyAlign)
+        nmap ga <Plug>(EasyAlign)
+      ]]
+    end,
+  },
   { -- Adds a number of commands using fzf
     'junegunn/fzf.vim',
     dependencies = {
