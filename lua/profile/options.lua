@@ -27,3 +27,4 @@ vim.wo.number          =  true
 vim.wo.relativenumber  =  true
 
 vim.opt.listchars     = 'eol:$,tab:>-,trail:~,extends:>,precedes:<'
+vim.opt.modeline      = false
