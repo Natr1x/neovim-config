@@ -28,3 +28,4 @@ vim.wo.relativenumber  =  true
 
 vim.opt.listchars     = 'eol:$,tab:>-,trail:~,extends:>,precedes:<'
 vim.opt.modeline      = false
+vim.opt.cinkeys       = '0{,0},0),0],0#,!^F,o,O,e'

@@ -66,7 +66,7 @@ local function c_and_cpp(client, bufnr)
 
   bind {
     {
-      { {'n', 'o', 'v'}, '<M-o>', ':ClangdSwitchSourceHeader<cr>',
+      { {'n', 'o', 'v'}, '<M-o>', ':LspClangdSwitchSourceHeader<cr>',
         { silent = true, desc = 'LSP: Switch to header / source' } },
     },
   }

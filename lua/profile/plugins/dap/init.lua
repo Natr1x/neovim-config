@@ -76,7 +76,10 @@ return {
     },
 
     -- Installs the debug adapters for you
-    'williamboman/mason.nvim',
+    {
+      'mason-org/mason.nvim',
+      opts = {},
+    }
 
     -- Add your own debuggers here
     -- 'leoluz/nvim-dap-go',
