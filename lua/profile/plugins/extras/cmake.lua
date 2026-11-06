@@ -107,6 +107,9 @@ return {
   },
   {
     "Shatur/neovim-tasks",
+    opts = {
+      dap_open_command = function() end,
+    },
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
 }
