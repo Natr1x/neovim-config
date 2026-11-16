@@ -58,11 +58,12 @@ require('lazy').setup({
 
   'preservim/tagbar',
 
-  { -- Replaces Easymotion
-    'phaazon/hop.nvim',
-    opts = {},
-    branch = 'v1', -- optional but strongly recommended
-  },
+  -- No longer available
+  -- { -- Replaces Easymotion
+  --   'phaazon/hop.nvim',
+  --   opts = {},
+  --   branch = 'v1', -- optional but strongly recommended
+  -- },
 
   {
     'junegunn/vim-easy-align',

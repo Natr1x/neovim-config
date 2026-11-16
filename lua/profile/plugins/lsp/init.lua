@@ -50,21 +50,21 @@ end
 
 
 return {
-  { -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', opts = {} },
-
-      -- Useful status updates for LSP
-      {
-        'j-hui/fidget.nvim',
-        tag = "legacy",
-        event = "LspAttach",
-        opts = {}
-      },
-    },
-  },
+  -- { -- LSP Configuration & Plugins
+  --   'neovim/nvim-lspconfig',
+  --   dependencies = {
+  --     -- Automatically install LSPs to stdpath for neovim
+  --     { 'williamboman/mason.nvim', opts = {} },
+  --
+  --     -- Useful status updates for LSP
+  --     {
+  --       'j-hui/fidget.nvim',
+  --       tag = "legacy",
+  --       event = "LspAttach",
+  --       opts = {}
+  --     },
+  --   },
+  -- },
 
   -- Rust tools
   {
