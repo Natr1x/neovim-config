@@ -7,8 +7,29 @@
 --- csharp-ls requires the [dotnet-sdk](https://dotnet.microsoft.com/download) to be installed.
 ---
 --- The preferred way to install csharp-ls is with `dotnet tool install --global csharp-ls`.
+---
+--- This is mostly copied from nvim-lspconfig
 
-local util = require 'lspconfig.util'
+
+
+-- For zipfile: or tarfile: virtual paths, returns the path to the archive.
+-- Other paths are returned unaltered.
+local function strip_archive_subpath(path)
+  -- Matches regex from zip.vim / tar.vim
+  path = vim.fn.substitute(path, 'zipfile://\\(.\\{-}\\)::[^\\\\].*$', '\\1', '')
+  path = vim.fn.substitute(path, 'tarfile:\\(.\\{-}\\)::.*$', '\\1', '')
+  return path
+end
+
+local project_endings = { ".sln", ".slnx", ".csproj" }
+local function match_root_indicator(name, path)
+  for _, p in ipairs(project_endings) do
+    if name:sub(-#p) == p then
+      return true
+    end
+  end
+  return false
+end
 
 ---@type vim.lsp.Config
 return {
@@ -22,8 +43,17 @@ return {
     })
   end,
   root_dir = function(bufnr, on_dir)
-    local fname = vim.api.nvim_buf_get_name(bufnr)
-    on_dir(util.root_pattern '*.sln'(fname) or util.root_pattern '*.slnx'(fname) or util.root_pattern '*.csproj'(fname))
+    local file_path = vim.api.nvim_buf_get_name(bufnr)
+    local root_files = vim.fs.find(match_root_indicator, {
+      path = strip_archive_subpath(file_path),
+      type = 'file',
+      upward = true,
+    })
+    if root_files[1] then
+      on_dir(vim.fs.dirname(root_files[1]))
+    else
+      on_dir(nil)
+    end
   end,
   filetypes = { 'cs' },
   init_options = {
